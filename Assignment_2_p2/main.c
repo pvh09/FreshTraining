@@ -1,6 +1,6 @@
 #include "employee.h"
 
-void sort_menu(Employee** employees){
+void sort_menu(Employee* employees){
 
     int choice;
     do {
@@ -14,13 +14,16 @@ void sort_menu(Employee** employees){
 
         switch (choice) {
             case 1:
-                sort_emp_increase_salary(employees);
+                merge_sort(&employees, compare_increase_salary);
+                print_employee_table(employees);
                 break;
             case 2:
-                sort_emp_decrease_salary(employees);
+                merge_sort(&employees, compare_decrease_salary);
+                print_employee_table(employees);
                 break;
             case 3:
-                sort_emp_alphabet_full_name(employees);
+                merge_sort(&employees, compare_by_name);
+                print_employee_table(employees);
                 break;
             case 4:
                 printf("Exiting sorting. Back to program.\n");
@@ -60,7 +63,7 @@ int main(){
                 print_employee_table(employees);
                 break;
             case 5:
-                sort_menu(&employees);
+                sort_menu(employees);
                 break;
             case 6:
                 printf("Exiting program.\n");

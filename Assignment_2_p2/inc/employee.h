@@ -49,11 +49,12 @@ void remove_employee_by_id(struct Employee** head);
 void remove_employee_by_full_name(Employee** head);
 
 double validate_num_input(bool flag);
+void merge_sort(Employee** head, int (*compare)(const void*, const void*));
 
-void sort_emp_increase_salary(Employee** head);
+int compare_increase_salary(const void* left, const void* right);
 
-void sort_emp_decrease_salary(Employee** head);
+int compare_decrease_salary(const void* left, const void* right);
 
-void sort_emp_alphabet_full_name(Employee** head);
+int compare_by_name(const void* left, const void* right);
 
 #endif

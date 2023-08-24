@@ -168,20 +168,22 @@ Employee* input_employee_infomation_list(int number, Employee** head) {
     printf("Enter information for employee #%d:\n", number + 1);
     int new_id = (int)check_unique_id(head);
     new_employee->id = new_id;
-
     __fpurge(stdin);
+
     printf("Full Name: ");
     __fpurge(stdin);
-    new_employee->full_name = (char*)malloc(10 * sizeof(char)); // Adjust the size as needed
+    new_employee->full_name = (char*)malloc(10 * sizeof(char)); 
     new_employee->full_name = validate_string_input();
     __fpurge(stdin);
     
     printf("Department: ");
     __fpurge(stdin);
-    new_employee->department = (char*)malloc(100 * sizeof(char)); // Adjust the size as needed
+    new_employee->department = (char*)malloc(100 * sizeof(char)); 
     scanf(" %[^\n]", new_employee->department);
+
     printf("Salary: ");
-    new_employee->salary = validate_num_input(0);  // Assuming 1 means input can be double
+    new_employee->salary = validate_num_input(0);  // Assuming 0 means input can be double
+
     do {
         printf("Start Date (day month year): ");
         __fpurge(stdin);
@@ -286,49 +288,107 @@ void remove_employee_by_full_name(Employee** head) {
             current = current->next;
         }
     } else {
-        // Remove employees with the given full name by their IDs
         printf("NOTICE: There are %d employees in list!!\n", match_count);
         printf("WARNING: Must be delete employee by ID: \n");
         remove_employee_by_id(head);
     }
 }
 
-static void swap_employee(Employee** a, Employee** b) {
-    Employee* temp = *a;
-    *a = *b;
-    *b = temp;
+
+Employee* merge(Employee* left, Employee* right, int (*compare)(const void*, const void*)) {
+    if (left == NULL) {
+        return right;
+    }
+    if (right == NULL) {
+        return left;
+    }
+
+    Employee* result = NULL;
+
+    if (compare(left, right) <= 0) {
+        result = left;
+        result->next = merge(left->next, right, compare);
+    } else {
+        result = right;
+        result->next = merge(left, right->next, compare);
+    }
+
+    return result;
 }
 
-void sort_emp_increase_salary(Employee** head){
-    for (Employee* i = *head; i != NULL; i = i->next) {
-        for (Employee* j = i->next; j != NULL; j = j->next) {
-            if (j->salary > i->salary) {
-                swap_employee(&i, &j);
-            }
+// Comparison function for increasing salary
+int compare_increase_salary(const void* a, const void* b) {
+    const Employee* emp1 = *(const Employee**)a;
+    const Employee* emp2 = *(const Employee**)b;
+    return (emp1->salary > emp2->salary) - (emp1->salary < emp2->salary);
+}
+
+// Comparison function for decreasing salary
+int compare_decrease_salary(const void* a, const void* b) {
+    const Employee* emp1 = *(const Employee**)a;
+    const Employee* emp2 = *(const Employee**)b;
+    return (emp2->salary > emp1->salary) - (emp2->salary < emp1->salary);
+}
+
+// Comparison function for full name alphabetically
+int compare_by_name(const void* a, const void* b) {
+    const Employee* emp1 = *(const Employee**)a;
+    const Employee* emp2 = *(const Employee**)b;
+    return strcmp(emp1->full_name, emp2->full_name);
+}
+
+void merge_sort(Employee** head, int (*compare)(const void*, const void*)) {
+    if (*head == NULL || (*head)->next == NULL) {
+        return;
+    }
+
+    Employee* current = *head;
+    Employee* left = NULL;
+    Employee* right = NULL;
+
+    Employee* mid = *head;
+    Employee* fast = (*head)->next;
+
+    while (fast != NULL) {
+        fast = fast->next;
+        if (fast != NULL) {
+            mid = mid->next;
+            fast = fast->next;
         }
     }
-    //print_employee_table(head);
-}
 
-void sort_emp_decrease_salary(Employee** head){
-    for (Employee* i = *head; i != NULL; i = i->next) {
-        for (Employee* j = i->next; j != NULL; j = j->next) {
-            if (j->salary < i->salary) {
-                swap_employee(&i, &j);
-            }
+    left = *head;
+    right = mid->next;
+    mid->next = NULL;
+
+    // Recursively sort the two halves
+    merge_sort(&left, compare);
+    merge_sort(&right, compare);
+
+    *head = NULL; 
+
+    while (left != NULL && right != NULL) {
+        Employee* temp;
+        if (compare(&left, &right) <= 0) {
+            temp = left;
+            left = left->next;
+        } else {
+            temp = right;
+            right = right->next;
+        }
+
+        if (*head == NULL) {
+            *head = temp;
+            current = *head;
+        } else {
+            current->next = temp;
+            current = current->next;
         }
     }
-    //print_employee_table(head);
-}
 
-void sort_emp_alphabet_full_name(Employee** head){
-    for (Employee* i = *head; i != NULL; i = i->next) {
-        for (Employee* j = i->next; j != NULL; j = j->next) {
-            if (strcmp(j->full_name, i->full_name) < 0) {
-                swap_employee(&i, &j);
-            }
-        }
+    if (left != NULL) {
+        current->next = left;
+    } else {
+        current->next = right;
     }
-    //print_employee_table(head);
 }
-
