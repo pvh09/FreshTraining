@@ -13,19 +13,19 @@ void sort_menu(Employee* employees){
         choice = validate_num_input(0);
 
         switch (choice) {
-            case 1:
+            case SORT_BY_SALARY_INCREASING:
                 merge_sort(&employees, compare_increase_salary);
                 print_employee_table(employees);
                 break;
-            case 2:
+            case SORT_BY_SALARY_DERCEASING:
                 merge_sort(&employees, compare_decrease_salary);
                 print_employee_table(employees);
                 break;
-            case 3:
+            case SORT_BY_ALPHABET_FULL_NAME:
                 merge_sort(&employees, compare_by_name);
                 print_employee_table(employees);
                 break;
-            case 4:
+            case EXIT_SORT:
                 printf("Exiting sorting. Back to program.\n");
                 break;
             default:
@@ -36,7 +36,6 @@ void sort_menu(Employee* employees){
 
 int main(){
     Employee* employees = NULL;
-
     int choice;
     do {
         printf("\n---------- Employee Management System -----------\n");
@@ -50,22 +49,22 @@ int main(){
         choice = validate_num_input(0);
 
         switch (choice) {
-            case 1:
+            case ADD_EMPLOYEE:
                 add_employee(&employees);
                 break;
-            case 2:
+            case REMOVE_BY_ID:
                 remove_employee_by_id(&employees);
                 break;
-            case 3:
+            case REMOVE_BY_FULL_NAME:
                 remove_employee_by_full_name(&employees);
                 break;
-            case 4:
+            case SHOW_EMPLOYEE:
                 print_employee_table(employees);
                 break;
-            case 5:
+            case SORT_OPTION:
                 sort_menu(employees);
                 break;
-            case 6:
+            case EXIT_PROGRAM:
                 printf("Exiting program.\n");
                 break;
             default:

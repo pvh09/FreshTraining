@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <ctype.h>
+#define _POSIX_C_SOURCE 200809L
 #include <string.h>
 #include <limits.h>
 #include <stdio_ext.h> // __fpurge(stdin);
@@ -24,6 +25,24 @@ struct Employee {
     struct Date start_date;
     struct Employee* next;
 };
+
+typedef enum {
+    TMP,
+    ADD_EMPLOYEE,
+    REMOVE_BY_ID,
+    REMOVE_BY_FULL_NAME,
+    SHOW_EMPLOYEE,
+    SORT_OPTION,
+    EXIT_PROGRAM
+}option_t;
+
+typedef enum {
+    TEMP,
+    SORT_BY_SALARY_INCREASING,
+    SORT_BY_SALARY_DERCEASING,
+    SORT_BY_ALPHABET_FULL_NAME,
+    EXIT_SORT
+}option_sort;
 
 typedef struct Date Date;
 typedef struct Employee Employee;
