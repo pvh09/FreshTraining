@@ -9,19 +9,19 @@
 
 #define N_MAX 50
 
-void input_number_of_array(unsigned int *number_array);
+void input_number_of_array(int *number_array);
 
-void input_elements_array(unsigned int number_array, unsigned int *array);
+void input_elements_array(int number_array, int *array);
 
-unsigned int* init_array( unsigned int number_array);
+int* init_array( int number_array);
 
-void output_array(unsigned int* array, unsigned int number_array);
+void output_array(int* array, int number_array);
 
-double calculate_avg_array(unsigned int *array, unsigned int number_array);
+double calculate_avg_array(int *array, int number_array);
 
-unsigned int calculate_elements_small_avg(unsigned int *array, unsigned int number_array, double average);
+int calculate_elements_small_avg(int *array, int number_array, double average);
 
-void move_even_odd(unsigned int *array, unsigned int number_array);
+void move_even_odd(int *array, int number_array);
 
-void free_array(unsigned int* array);
+void free_array(int* array);
 #endif

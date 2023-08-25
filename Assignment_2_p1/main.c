@@ -2,27 +2,27 @@
 
 int main(){
 
-    unsigned int N = 0;
-    unsigned int *array;
+    int number_of_element = 0;
+    int *array;
     double avg_array = 0.00;
-    input_number_of_array(&N);
+    input_number_of_array(&number_of_element);
 
-    array = init_array(N);
+    array = init_array(number_of_element);
 
-    printf("Enter %d integers:\n", N);
-    input_elements_array(N, array);
+    printf("Enter %d integers:\n", number_of_element);
+    input_elements_array(number_of_element, array);
 
     printf("Array elements: ");
-    output_array(array,N);
+    output_array(array,number_of_element);
 
-    avg_array = calculate_avg_array(array, N);
+    avg_array = calculate_avg_array(array, number_of_element);
     printf("\nAverage value: %.2lf\n", avg_array);
 
-    printf("Number of elements less than average: %d\n", calculate_elements_small_avg(array, N, avg_array));
+    printf("number_of_elementumber of elements less than average: %d\n", calculate_elements_small_avg(array, number_of_element, avg_array));
     
     printf("Array elements after moving even and odd values: ");
-    move_even_odd(array, N);
-    output_array(array,N);
+    move_even_odd(array, number_of_element);
+    output_array(array,number_of_element);
     printf("\n");
 
     free_array(array);
