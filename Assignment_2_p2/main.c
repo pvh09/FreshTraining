@@ -1,6 +1,8 @@
 #include "employee.h"
 
-void sort_menu(Employee* employees){
+employee_list *list_employee = NULL;
+
+void sort_menu(employee_list* list_employee){
 
     int choice;
     do {
@@ -14,16 +16,16 @@ void sort_menu(Employee* employees){
 
         switch (choice) {
             case SORT_BY_SALARY_INCREASING:
-                merge_sort(&employees, compare_increase_salary);
-                print_employee_table(employees);
+                merge_sort(&list_employee, compare_increase_salary);
+                print_employee_table(list_employee);
                 break;
             case SORT_BY_SALARY_DERCEASING:
-                merge_sort(&employees, compare_decrease_salary);
-                print_employee_table(employees);
+                merge_sort(&list_employee, compare_decrease_salary);
+                print_employee_table(list_employee);
                 break;
             case SORT_BY_ALPHABET_FULL_NAME:
-                merge_sort(&employees, compare_by_name);
-                print_employee_table(employees);
+                merge_sort(&list_employee, compare_by_name);
+                print_employee_table(list_employee);
                 break;
             case EXIT_SORT:
                 printf("Exiting sorting. Back to program.\n");
@@ -35,7 +37,6 @@ void sort_menu(Employee* employees){
 }
 
 int main(){
-    Employee* employees = NULL;
     int choice;
     do {
         printf("\n---------- Employee Management System -----------\n");
@@ -50,19 +51,19 @@ int main(){
 
         switch (choice) {
             case ADD_EMPLOYEE:
-                add_employee(&employees);
+                add_employee(&list_employee);
                 break;
             case REMOVE_BY_ID:
-                remove_employee_by_id(&employees);
+                remove_employee_by_id(&list_employee);
                 break;
             case REMOVE_BY_FULL_NAME:
-                remove_employee_by_full_name(&employees);
+                remove_employee_by_full_name(&list_employee);
                 break;
             case SHOW_EMPLOYEE:
-                print_employee_table(employees);
+                print_employee_table(list_employee);
                 break;
             case SORT_OPTION:
-                sort_menu(employees);
+                sort_menu(list_employee);
                 break;
             case EXIT_PROGRAM:
                 printf("Exiting program.\n");
@@ -71,6 +72,6 @@ int main(){
                 printf("Invalid choice. Please enter a valid option.\n");
         }
     } while (choice != 6);
-    free_employee_list(employees);
+    free_employee_list(list_employee);
     return 0;
 }

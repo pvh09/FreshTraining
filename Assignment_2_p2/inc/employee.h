@@ -23,7 +23,6 @@ struct Employee {
     char* department;
     double salary;
     struct Date start_date;
-    struct Employee* next;
 };
 
 typedef enum {
@@ -47,28 +46,32 @@ typedef enum {
 typedef struct Date Date;
 typedef struct Employee Employee;
 
+struct node {
+    Employee* employee_info;
+    struct node* next;
+};
+
+typedef struct node employee_list;
+
 void input_number_of_employee( int *number);
 
-Employee* init_employee(int number);
+void insert_employee(employee_list **list_employee, Employee *p_new_employee);
 
-Employee* create_employee(Employee *emp, int number);
+Employee* input_employee_infomation_list(int number, employee_list **list_employee);
 
-void insert_employee(Employee** head, Employee* new_employee);
+void print_employee_table(employee_list *list_head);
 
-Employee* input_employee_infomation_list(int number, Employee** head);
+void free_employee_list(employee_list* head);
 
-void print_employee_table(Employee* head);
+void add_employee(employee_list **employees);
 
-void free_employee_list(Employee* head);
+void remove_employee_by_id(employee_list** head);
 
-void add_employee(Employee** employees);
-
-void remove_employee_by_id(struct Employee** head);
-
-void remove_employee_by_full_name(Employee** head);
+void remove_employee_by_full_name(employee_list** head);
 
 double validate_num_input(bool flag);
-void merge_sort(Employee** head, int (*compare)(const void*, const void*));
+
+void merge_sort(employee_list** head, int (*compare)(const void*, const void*));
 
 int compare_increase_salary(const void* left, const void* right);
 
