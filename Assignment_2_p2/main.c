@@ -1,6 +1,6 @@
 #include "employee.h"
 
-employee_list *list_employee = NULL;
+employee_list* list_employee = NULL;
 
 void sort_menu(employee_list* list_employee){
 
