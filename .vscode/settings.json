@@ -1,6 +1,8 @@
 {
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
-        "stdio_ext.h": "c"
+        "stdio_ext.h": "c",
+        "array.h": "c",
+        "cstdlib": "c"
     }
 }
