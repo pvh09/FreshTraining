@@ -7,14 +7,14 @@
 #include <ctype.h>
 #include <stdbool.h>
 
-#define SHIFT 3
-#define MAX_FILE_NAME 100
+#define MAX_FILE_NAME 15
 
 typedef enum {
-    TMP,
+    EXIT_PROGRAM,
     ENCRYPT,
     DECRYPT,
-    EXIT_PROGRAM
+    CHANGE_SHIFT,
+    CHANGE_OUTPUT_FILE
 }option_t;
 
 /*!
@@ -26,12 +26,16 @@ typedef enum {
  *
  * @return The validated numerical value.
  */
-double validate_num_input(bool flag);
+double validate_num_input();
+
+int input_shift(int shift);
 
 void input_file(char* file_name);
 
-void encrypt(FILE* file, bool flag);
+void encrypt(char* file_name, int shift, bool flag);
 
-void decrypt(FILE* file);
+void decrypt(char* file_name, int shift);
+
+void change_new_output_file(char* file_name, int shift);
 
 #endif

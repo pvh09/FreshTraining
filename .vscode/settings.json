@@ -3,6 +3,7 @@
     "files.associations": {
         "stdio_ext.h": "c",
         "array.h": "c",
-        "cstdlib": "c"
+        "cstdlib": "c",
+        "cctype": "c"
     }
 }
