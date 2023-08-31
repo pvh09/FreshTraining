@@ -96,7 +96,7 @@ static bool is_over_range(char* file_name){
 static bool check_digit(char* file_name){
     int i = 0;
     for(i; i < strlen(file_name); i++){
-        if(file_name[i] != '\\' && file_name[i] != '/'){
+        if(file_name[i] != '\\' && file_name[i] != '/' && file_name[i] != '.'){
             return true;
         }
     }
