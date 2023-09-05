@@ -6,6 +6,7 @@
         "cstdlib": "c",
         "cctype": "c",
         " gemtekmathlib.h": "c",
-        "gemtek_lib.h": "c"
+        "gemtek_lib.h": "c",
+        "string.h": "c"
     }
 }
