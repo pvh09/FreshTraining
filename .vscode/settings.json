@@ -4,6 +4,8 @@
         "stdio_ext.h": "c",
         "array.h": "c",
         "cstdlib": "c",
-        "cctype": "c"
+        "cctype": "c",
+        " gemtekmathlib.h": "c",
+        "gemtek_lib.h": "c"
     }
 }
