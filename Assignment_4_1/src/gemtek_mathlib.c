@@ -43,14 +43,14 @@ void get_input_integer(int *integer_number)
 double calculate_square_integer(int integer_number)
 {
     double square = 0.0f;
-    square = (long long)integer_number * integer_number;
+    square = (double)integer_number * integer_number;
     return square;
 }
 
 double calculate_cube_integer(int integer_number)
 {
     double cube = 0.0f;
-    cube = pow(integer_number, 3);
+    cube = (double)integer_number * integer_number * integer_number;
     return cube;
 }
 
