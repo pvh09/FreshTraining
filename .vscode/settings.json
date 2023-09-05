@@ -8,6 +8,7 @@
         " gemtekmathlib.h": "c",
         "gemtek_lib.h": "c",
         "string.h": "c",
-        "limits.h": "c"
+        "limits.h": "c",
+        "morse_code.h": "c"
     }
 }

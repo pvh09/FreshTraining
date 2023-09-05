@@ -1,5 +1,5 @@
-#ifndef _CAESAR_H_
-#define _CAESAR_H_
+#ifndef _MORSE_CODE_H_
+#define _MORSE_CODE_H_
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,72 +9,38 @@
 
 #define MAX_FILE_NAME 100
 
+// Structure for a node in the binary tree
+typedef struct tree_node {
+    char data;
+    struct tree_node* p_left;
+    struct tree_node* p_right;
+} tree_node_t;
+
+
 typedef enum {
     EXIT_PROGRAM,
-    ENCRYPT,
-    DECRYPT,
-    CHANGE_SHIFT,
-    CHANGE_OUTPUT_FILE
+    ENCODING,
+    DECODING,
 }option_t;
 
-/*!
- * @brief Validate and input a numerical value.
- *
- * This function validates and inputs a numerical value from the user.
- *
- * @param[in] flag - Boolean flag to determine whether to validate for non-negative input.
- *
- * @return The validated numerical value.
- */
-double validate_num_input();
+// Structure for a node in the binary tree 
+void build_morse_code_tree(tree_node_t* root);
 
-/*!
- * @brief Change shift for program.
- *
- * @param[in] shift - int to save input from key board,
- *
- * @return The validated numerical value.
- */
-int input_shift(int shift);
+// Function to create a new node for the binary tree
+tree_node_t* create_node(char data);
 
-/**
- * @brief Gets the input file name from the user.
- *
- * @param file_name A character pointer to store the input file name.
- */
-void input_file(char* file_name);
+// Function to insert a character into the binary tree
+void insert(tree_node_t* root, char character, char* code);
 
-/**
- * @brief Encrypts the content of a file using the Caesar cipher algorithm.
- *
- * @param file_name The name of the input file.
- * 
- * @param shift The shift value for encryption.
- * 
- * @param flag The encryption flag (true for positive shift, false for negative shift).
- * 
- * @param output_file_name The name of the output file to write the encrypted content.
- */
-void encrypt(char* file_name, int shift, bool flag, char* output_file_name);
+// Function to encode a message to Morse code
+void encode(tree_node_t* root, char* message, FILE* output_file);
 
-/**
- * @brief Decrypts the content of a file that was encrypted using the Caesar cipher algorithm.
- *
- * @param file_name The name of the input file.
- * 
- * @param shift The shift value for decryption.
- * 
- * @param flag The decryption flag (true for positive shift, false for negative shift).
- * 
- * @param output_file_name The name of the output file to write the decrypted content.
- */
-void decrypt(char *file_name, int shift, bool flag, char* output_file_name);
+// Function to decode Morse code to plain text
+void decode(tree_node_t* root, char* morse_code, FILE* output_file);
 
-/**
- * @brief Changes the output file name.
- *
- * @param output_file_name A character pointer to store the new output file name.
- */
-void change_output_file(char* output_file_name);
+// Function to build the Morse code binary tree from a mapping file
+void build_morse_code_tree(tree_node_t* root);
+
+void printBinaryTree(tree_node_t* root, int space);
 
 #endif

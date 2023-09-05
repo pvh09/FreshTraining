@@ -1,22 +1,22 @@
 CC = gcc
 INC = -I ./inc
 SRC = ./src/*.c
-caesar: main.o caesar.o
-	$(CC) caesar.o main.o -o run
+morse_code: main.o morse_code.o
+	$(CC) morse_code.o main.o -o run
 
 main.o: main.c
 	$(CC) -c main.c $(INC)
 
-caesar.o: $(SRC) 
+morse_code.o: $(SRC) 
 	$(CC) -c $(SRC) $(INC)
 
 clean:
 	rm -rf run *.o
 
-run: caesar
+run: morse_code
 	./run
 
-running: caesar run clean
+running: morse_code run clean
 
 memory: main.c
 	$(CC) main.c $(SRC) $(INC) -g -std=c11 -lm -o debug
