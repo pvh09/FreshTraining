@@ -51,8 +51,7 @@ double calculate_square_integer(int integer_number)
 double calculate_cube_integer(int integer_number)
 {
     double cube = 0.0f;
-    cube = pow(integer_number, 3);
-    //cube = (double)(integer_number * (long long)integer_number * integer_number);
+    cube = (double)integer_number * integer_number * integer_number;
     return cube;
 }
 
