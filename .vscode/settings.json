@@ -7,6 +7,7 @@
         "cctype": "c",
         " gemtekmathlib.h": "c",
         "gemtek_lib.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "limits.h": "c"
     }
 }

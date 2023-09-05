@@ -7,7 +7,7 @@ all: main
 	./main
 
 main: main.o gemtek_mahlib.a
-	$(CC) main.o -o main -L./lib -l:gemtek_mahlib.a
+	$(CC) main.o -o main -L./lib -l:gemtek_mahlib.a -lm
 
 main.o: main.c
 	$(CC) -c main.c $(INC)
