@@ -18,13 +18,25 @@ typedef struct tree_node {
 
 
 typedef enum {
-    EXIT_PROGRAM,
-    ENCODING,
+    EXIT,
     DECODING,
+    ENCODING
 }option_t;
 
+typedef enum {
+    EXIT_PROGRAM,
+    KEYBOARD_DATA,
+    READ_FILE,
+}choice_t;
+
+double validate_num_input();
+
+void input_file(char *file_name);
+
+void change_output_file(char* output_file_name);
+
 // Structure for a node in the binary tree 
-void build_morse_code_tree(tree_node_t* root);
+tree_node_t* build_morse_code_tree();
 
 // Function to create a new node for the binary tree
 tree_node_t* create_node(char data);
@@ -33,14 +45,9 @@ tree_node_t* create_node(char data);
 void insert(tree_node_t* root, char character, char* code);
 
 // Function to encode a message to Morse code
-void encode(tree_node_t* root, char* message, FILE* output_file);
+void encode_file(const char* input_file, const char* output_file, tree_node_t* root);
 
 // Function to decode Morse code to plain text
-void decode(tree_node_t* root, char* morse_code, FILE* output_file);
-
-// Function to build the Morse code binary tree from a mapping file
-void build_morse_code_tree(tree_node_t* root);
-
-void printBinaryTree(tree_node_t* root, int space);
+void decode_file(const char* input_file, const char* output_file, tree_node_t* root);
 
 #endif

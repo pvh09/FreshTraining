@@ -1,73 +1,120 @@
 #include "morse_code.h"
 
-// void menu(char *file_name, char *output_file_name, int shift)
-// {
-//     int choice;
-//     system("clear");
-//     do
-//     {
-//         printf("\n\n=========================");
-//         printf("\n>> Input file:  %s", file_name);
-//         printf("\n>> Output file opened: %s", output_file_name);
-//         printf("\n>> %d (shift)", shift);
-//         printf("\n  --------OPTION-------\n");
-//         printf("      1. Encrypt a string\n");
-//         printf("      2. Decrypt a string\n");
-//         printf("      3. Change shift\n");
-//         printf("      4. Change output file\n");
-//         printf("      0. Exit\n");
-//         printf("Enter your choice: ");
-//         choice = validate_num_input();
-
-//         switch (choice)
-//         {
-//         case ENCRYPT:
-//             printf("\nEncrypted content: \n");
-//             encrypt(file_name, shift, 1, output_file_name);
-//             break;
-//         case DECRYPT:
-//             printf("\nDecrypted content: \n");
-//             decrypt(file_name, shift, 0, output_file_name);
-//             break;
-//         case CHANGE_SHIFT:
-//             printf("New shift - ");
-//             shift = input_shift(shift);
-//             menu(file_name, output_file_name, shift);
-//             break;
-//         case CHANGE_OUTPUT_FILE:
-//             change_output_file(output_file_name);
-//             menu(file_name, output_file_name, shift);
-//             break;
-//         case EXIT_PROGRAM:
-//             printf(">> Exiting program.\n");
-//             exit(1);
-//         default:
-//             printf("Invalid choice. Please enter a valid option.\n");
-//         }
-//     } while (choice != 4);
-// }
-
-int main()
+void data_from_file_menu(char *file_name, char *output_file_name, tree_node_t* root)
 {
+    int choice;
+    system("clear");
+    do
+    {
+        printf(">> You choose enter data from FILE\n");
+        printf("Your input file name: %s", file_name);
+        printf("\n\n=========================");
+        printf("\n  --------FILE DATA OPTION-------\n");
+        printf("      1. Decode (convert morsecode to text)\n");
+        printf("      2. Encode (convert text to morsecode)\n");
+        printf("      0. Exit\n");
+        printf("Enter your choice: ");
+        choice = validate_num_input();
 
-    // char file_name[MAX_FILE_NAME];
-    // char output_file_name[MAX_FILE_NAME];
-    // input_file(file_name);
-    // change_output_file(output_file_name);
-    // int shift = input_shift(shift);
-    // menu(file_name, output_file_name, shift);
+        switch (choice)
+        {
+        case DECODING:
+            
+            change_output_file(output_file_name);
+            decode_file(file_name, output_file_name, root);
+            break;
+        case ENCODING:
+            
+            break;
+        case EXIT:
+            printf(">> Exiting program.\n");
+            exit(1);
+        default:
+            printf("Invalid choice. Please enter a valid option.\n");
+        }
+    } while (choice != 2);
+}
 
+void data_from_keyboard_menu(char *file_name, char *output_file_name, tree_node_t* root)
+{
+    int choice;
+    system("clear");
+    do
+    {
+        printf("\n\n=========================");
+        printf("\n  --------DATA KEYBOARD OPTION-------\n");
+        printf("      1. Decode (convert morsecode to text.\n");
+        printf("      2. Encode (convert text to morsecode.\n");
+        printf("      0. Exit\n");
+        printf("Enter your choice: ");
+        choice = validate_num_input();
+
+        switch (choice)
+        {
+        case DECODING:
+            printf(">> You choose enter data from keyboard");
+
+            break;
+        case ENCODING:
+            printf(">> You choose enter data from FILE");
+            
+            break;
+        case EXIT:
+            printf(">> Exiting .\n");
+            break;
+        default:
+            printf("Invalid choice. Please enter a valid option.\n");
+        }
+    } while (choice != 2);
+}
+
+void main_menu(char *file_name, char *output_file_name, tree_node_t* root)
+{
+    int choice;
+    system("clear");
+    do
+    {
+        printf("\n\n=========================");
+        printf("\n  --------OPTION-------\n");
+        printf("      1. Enter data from keyboard\n");
+        printf("      2. Read data from file\n");
+        printf("      0. Exit\n");
+        printf("Enter your choice: ");
+        choice = validate_num_input();
+
+        switch (choice)
+        {
+        case KEYBOARD_DATA:
+            printf(">> You choose enter data from keyboard\n");
+            
+            break;
+        case READ_FILE:
+            printf(">> You choose enter data from FILE\n");
+            input_file(file_name);
+            data_from_file_menu(file_name, output_file_name, root);
+            break;
+        case EXIT_PROGRAM:
+            printf(">> Exiting program.\n");
+            break;
+        default:
+            printf("Invalid choice. Please enter a valid option.\n");
+        }
+    } while (choice != 2);
+}
+
+int main(){
+
+    char file_name[MAX_FILE_NAME];
+    char output_file_name[MAX_FILE_NAME];
+    tree_node_t* root = build_morse_code_tree();
     
-    tree_node_t* root = create_node('A');
-    root->p_left = create_node('B');
-    root->p_right = create_node('C');
-    root->p_left->p_left = create_node('D');
-    root->p_left->p_right = create_node('E');
-    root->p_right->p_left = create_node('F');
-    root->p_right->p_right = create_node('G');
+    //main_menu(file_name, output_file_name, root);
 
-    printf("2D Representation of Binary Tree:\n\n");
-    printBinaryTree(root, 0);
+    input_file(file_name);
+    change_output_file(output_file_name);
+    
 
+    encode_file(file_name, output_file_name, root);
+    //decode_file(file_name, output_file_name, root);
     return 0;
 }
