@@ -1,4 +1,5 @@
 #include "morse_code.h"
+#include "binary_tree.h"
 
 void data_from_file_menu(char *file_name, char *output_file_name, tree_node_t* root)
 {
@@ -114,7 +115,17 @@ int main(){
     change_output_file(output_file_name);
     
 
-    encode_file(file_name, output_file_name, root);
-    //decode_file(file_name, output_file_name, root);
+    //encode_file(file_name, output_file_name, root);
+    decode_file(file_name, output_file_name, root);
+
+    // int result = encodeFromFile(file_name, output_file_name, root);
+
+    // if (result == 0) {
+    //     printf("Encoding completed successfully.\n");
+    // } else {
+    //     printf("Encoding encountered an error.\n");
+    // }
+
+    // return result;
     return 0;
 }

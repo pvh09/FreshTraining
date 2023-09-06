@@ -1,36 +1,76 @@
 #include "morse_code.h"
+#include "binary_tree.h"
+
+char* map_morse_code(char character) {
+    switch (character) {
+        case 'A':
+            return ".-";
+        case 'B':
+            return "-...";
+        case 'C':
+            return "-.-.";
+        case 'D':
+            return "-..";
+        case 'E':
+            return ".";
+        case 'F':
+            return "..-.";
+        case 'G':
+            return "--.";
+        case 'H':
+            return "....";
+        case 'I':
+            return "..";
+        case 'J':
+            return ".---";
+        case 'K':
+            return "-.-";
+        case 'L':
+            return ".-..";
+        case 'M':
+            return "--";
+        case 'N':
+            return "-.";
+        case 'O':
+            return "---";
+        case 'P':
+            return ".--.";
+        case 'Q':
+            return "--.-";
+        case 'R':
+            return ".-.";
+        case 'S':
+            return "...";
+        case 'T':
+            return "-";
+        case 'U':
+            return "..-";
+        case 'V':
+            return "...-";
+        case 'W':
+            return ".--";
+        case 'X':
+            return "-..-";
+        case 'Y':
+            return "-.--";
+        case 'Z':
+            return "--..";
+        default:
+            return ""; // Return an empty string for characters not in the Morse code mapping
+    }
+}
 
 tree_node_t* build_morse_code_tree() {
     tree_node_t* root = create_node('\0');
-    insert(root, 'A', ".-");
-    insert(root, 'B', "-...");
-    insert(root, 'C', "-.-.");
-    insert(root, 'D', "-..");
-    insert(root, 'E', ".");
-    insert(root, 'F', "..-.");
-    insert(root, 'G', "--.");
-    insert(root, 'H', "....");
-    insert(root, 'I', "..");
-    insert(root, 'J', ".---");
-    insert(root, 'K', "-.-");
-    insert(root, 'L', ".-..");
-    insert(root, 'M', "--");
-    insert(root, 'N', "-.");
-    insert(root, 'O', "---");
-    insert(root, 'P', ".--.");
-    insert(root, 'Q', "--.-");
-    insert(root, 'R', ".-.");
-    insert(root, 'S', "...");
-    insert(root, 'T', "-");
-    insert(root, 'U', "..-");
-    insert(root, 'V', "...-");
-    insert(root, 'W', ".--");
-    insert(root, 'X', "-..-");
-    insert(root, 'Y', "-.--");
-    insert(root, 'Z', "--..");
+    char characters[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    // Loop through the characters array and insert into the tree
+    for (int i = 0; characters[i] != '\0'; i++) {
+        insert(root, characters[i], map_morse_code(characters[i]));
+    }
 
     return root;
 }
+
 
 double validate_num_input()
 {
@@ -192,44 +232,90 @@ void change_output_file(char* output_file_name)
     
 }
 
-tree_node_t* create_node(char data) {
-    tree_node_t* new_node = (tree_node_t*)malloc(sizeof(tree_node_t));
-    if (new_node == NULL) {
-        fprintf(stderr, "Memory allocation failed\n");
-        exit(1);
+void encode(tree_node_t* root, char character, FILE* output) {
+    if (root == NULL || character == ' ') {
+        return; // Invalid character or space, do nothing
     }
-    new_node->data = data;
-    new_node->p_left = NULL;
-    new_node->p_right = NULL;
-    return new_node;
-}
 
-void insert(tree_node_t* root, char character, char* code) {
-    tree_node_t* current_node = root;
+    if (isalpha(character)) {
+        character = toupper(character); // Convert character to uppercase
+        tree_node_t* current = root;
+        while (current != NULL && current->data != character) {
+            if (character < current->data) {
+                fprintf(output, "."); // Dot for left traversal
+                current = current->p_left;
+            } else {
+                fprintf(output, "-"); // Dash for right traversal
+                current = current->p_right;
+            }
+        }
 
-    for (int i = 0; code[i] != '\0'; i++) {
-        if (code[i] == '.') {
-            if (current_node->p_left == NULL) {
-                current_node->p_left = (tree_node_t*)malloc(sizeof(tree_node_t));
-                current_node->p_left->data = '\0'; // Initialize to null character
-                current_node->p_left->p_left = NULL;
-                current_node->p_left->p_right = NULL;
-            }
-            current_node = current_node->p_left;
-        } else if (code[i] == '-') {
-            if (current_node->p_right == NULL) {
-                current_node->p_right = (tree_node_t*)malloc(sizeof(tree_node_t));
-                current_node->p_right->data = '\0'; // Initialize to null character
-                current_node->p_right->p_left = NULL;
-                current_node->p_right->p_right = NULL;
-            }
-            current_node = current_node->p_right;
+        if (current != NULL) {
+            fprintf(output, " "); // Space to separate Morse code characters
         }
     }
-    current_node->data = character;
 }
 
+void encodeText(tree_node_t* root, const char* text, FILE* output) {
+    if (root == NULL || text == NULL) {
+        return; // Invalid parameters
+    }
 
+    for (int i = 0; text[i] != '\0'; i++) {
+        encode(root, text[i], output);
+    }
+}
+
+// Function to free the memory of the Morse code tree
+void freeMorseCodeTree(tree_node_t* root) {
+    if (root == NULL) {
+        return;
+    }
+
+    freeMorseCodeTree(root->p_left);
+    freeMorseCodeTree(root->p_right);
+    free(root);
+}
+
+// Function to open input and output files and perform encoding
+int encodeFromFile(const char* inputFileName, const char* outputFileName, tree_node_t* root) {
+    FILE* input = fopen(inputFileName, "r");
+    if (input == NULL) {
+        printf("Unable to open input file: %s\n", inputFileName);
+        freeMorseCodeTree(root);
+        return 1; // Exit with an error code
+    }
+
+    // Open the output file for writing
+    FILE* output = fopen(outputFileName, "w");
+    if (output == NULL) {
+        printf("Unable to open output file: %s\n", outputFileName);
+        fclose(input);
+        freeMorseCodeTree(root);
+        return 1; // Exit with an error code
+    }
+
+    char text[1000];
+    while (fgets(text, sizeof(text), input) != NULL) {
+        // Remove the newline character from the input
+        text[strcspn(text, "\n")] = '\0';
+
+        // Encode the text to Morse code and write to the output file
+        encodeText(root, text, output);
+
+        // Add a newline character after each line
+        fprintf(output, "\n");
+    }
+
+    // Close the input and output files
+    fclose(input);
+    fclose(output);
+
+    // Free the Morse code tree
+    freeMorseCodeTree(root);
+
+    return 0;
+}
 
 // morse code -> text
 void decode_file(const char* input_file, const char* output_file, tree_node_t* root) {
