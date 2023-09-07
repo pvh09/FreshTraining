@@ -34,7 +34,7 @@ CC = gcc
 INC = -I./inc
 SRC = ./src/*.c
 
-all: run clean
+all: run
 
 run: main
 	./main
