@@ -121,24 +121,36 @@ int encode_file(const char *input_file_name, const char *output_file_name, tree_
         return 1;
     }
 
-    // Read input from the file character by character
-    int c;
-    while ((c = fgetc(input)) != EOF)
+    // Read input from the file line by line
+    char buffer[1024];  // Adjust the buffer size as needed
+    while (fgets(buffer, sizeof(buffer), input) != NULL)
     {
-        if (c == ' ')
+        // Remove the newline character at the end of the line
+        buffer[strcspn(buffer, "\n")] = '\0';
+
+        // Encode the line character by character
+        for (int i = 0; i < strlen(buffer); i++)
         {
-            // Use the special character for space
-            encode_morse(root, ' ', output);
-        }
-        else
-        {
-            encode_morse(root, (char)c, output);
+            char c = buffer[i];
+            if (c == ' ')
+            {
+                // Use the special character for space
+                encode_morse(root, ' ', output);
+            }
+            else
+            {
+                encode_morse(root, c, output);
+            }
+
+            // Add a space after each encoded character (except for the last one)
+            if (i != strlen(buffer) - 1)
+                fputs(" ", output);
         }
 
-        // Add a space after each encoded character (except for the last one)
-        if (!feof(input))
-            fputs(" ", output);
+        // Write a newline character to the output file for the next line
+        fputs("\n", output);
     }
+
     // Close the input and output files
     fclose(input);
     fclose(output);
@@ -235,7 +247,7 @@ void decode_file(const char *input_file, const char *output_file, tree_node_t *r
             handle_token(token, root, output);
             token = strtok(NULL, " \n"); // Move to the next token
         }
-        fprintf(output, " "); // Add a space after each word
+        fprintf(output, "\n"); // Add a space after each word
     }
 
     fclose(input);

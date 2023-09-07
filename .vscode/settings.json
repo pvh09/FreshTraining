@@ -10,6 +10,7 @@
         "string.h": "c",
         "limits.h": "c",
         "morse_code.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "stdbool.h": "c"
     }
 }

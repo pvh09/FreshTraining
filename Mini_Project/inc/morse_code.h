@@ -1,11 +1,5 @@
 #ifndef _MORSE_CODE_H_
 #define _MORSE_CODE_H_
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio_ext.h>
-#include <ctype.h>
-#include <stdbool.h>
 #include "binary_tree.h"
 
 typedef enum
