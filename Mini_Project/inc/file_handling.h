@@ -27,7 +27,7 @@ void input_file(char *file_name);
 
 void output_file(char* output_file_name);
 
-void change_output_file(char* output_file_name);
+void change_file(char* output_file_name);
 
 void read_and_print_file(const char* filename) ;
 

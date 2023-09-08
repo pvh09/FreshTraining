@@ -2,20 +2,6 @@
 #define _MORSE_CODE_H_
 #include "binary_tree.h"
 
-typedef enum
-{
-    EXIT,
-    ENCODING,
-    DECODING,
-} option_t;
-
-typedef enum
-{
-    EXIT_PROGRAM,
-    KEYBOARD_DATA,
-    READ_FILE,
-} choice_t;
-
 tree_node_t *build_morse_code_tree();
 
 // Function to encode a message to Morse code

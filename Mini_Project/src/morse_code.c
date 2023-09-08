@@ -122,7 +122,7 @@ int encode_file(const char *input_file_name, const char *output_file_name, tree_
     }
 
     // Read input from the file line by line
-    char buffer[1024];  // Adjust the buffer size as needed
+    char buffer[1024]; // Adjust the buffer size as needed
     while (fgets(buffer, sizeof(buffer), input) != NULL)
     {
         // Remove the newline character at the end of the line
@@ -279,28 +279,44 @@ void decode_keyboard(tree_node_t *root, const char *output_file)
     printf("Decoding complete. Output saved to %s\n", output_file);
 }
 
-int encode_keyboard(const char* output_filename, tree_node_t* root) {
+int encode_keyboard(const char *output_filename, tree_node_t *root)
+{
     int c;
+    int rs = 1;
     // Open the output file
-    FILE* output = fopen(output_filename, "w");
-    if (output == NULL) {
+    FILE *output = fopen(output_filename, "w");
+    if (output == NULL)
+    {
         perror("Error opening output file");
         return 1;
     }
     __fpurge(stdin);
     printf("Enter text: ");
-    while ((c = getchar()) != EOF && c != '\n') {
-        if (c == ' ') {
+    while ((c = getchar()) != EOF && c != '\n')
+    {
+        if (c == ' ')
+        {
             // Use the special character for space
             encode_morse(root, ' ', output);
-        } else {
+        }
+        else
+        {
             encode_morse(root, (char)c, output);
         }
 
         // Add a space after each encoded character (except for the last one)
         fputs(" ", output);
+        rs = 1;
+    }
+
+    if (rs != 1)
+    {
+        printf("\n>> Error encoding file\n");
+    }
+    else
+    {
+        printf("\n>> File encoded successfully. Please check folder\n");
     }
     fclose(output);
-
     return 0;
 }

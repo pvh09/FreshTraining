@@ -154,10 +154,9 @@ void output_file(char* output_file_name)
     } while (!is_file_exist || strlen(output_file_name) > MAX_FILE);
 }
 
-void change_output_file(char* output_file_name)
+void change_file(char* output_file_name)
 {
     output_file(output_file_name);
-    
 }
 
 void read_and_print_file(const char* filename) {
