@@ -1,3 +1,7 @@
+#ifndef _FILE_HANDLING_H_
+#define _FILE_HANDLING_H_
+#include "binary_tree.h"
+
 /**
  * @brief Validate numerical input.
  *
@@ -121,3 +125,5 @@ void change_file(char* output_file_name);
  * @param filename The name of the file to be read.
  */
 void read_and_print_file(const char* filename);
+
+#endif

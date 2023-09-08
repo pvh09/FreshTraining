@@ -10,7 +10,7 @@ void data_from_file_menu(char *file_name, char *output_file_name, tree_node_t *r
     int choice;
 
     flag_check_change_file_from_keyboard = 0; // reset output file in keyboard because user switches to reading from the file
-    if(flag_check_change_file == 0)
+    if (flag_check_change_file == 0)
     {
         input_file(file_name);
         change_file(output_file_name);
@@ -74,11 +74,11 @@ void data_from_keyboard_menu(char *output_file_name, tree_node_t *root)
     int choice;
 
     flag_check_change_file = 0; // reset input/output file because user switches to reading from the keyboard
-    if(flag_check_change_file_from_keyboard == 0)
+    if (flag_check_change_file_from_keyboard == 0)
     {
         change_file(output_file_name);
     }
-    
+
     system("clear");
     do
     {

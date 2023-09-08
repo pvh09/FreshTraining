@@ -11,6 +11,7 @@
         "limits.h": "c",
         "morse_code.h": "c",
         "stdlib.h": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "binary_tree.h": "c"
     }
 }
