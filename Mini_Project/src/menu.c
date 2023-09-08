@@ -2,13 +2,17 @@
 #include "morse_code.h"
 #include "file_handling.h"
 
-bool g_flag_check_change_file = 0;
+static int flag_check_change_file_from_keyboard = 0;
+static int flag_check_change_file = 0;
 
 void data_from_file_menu(char *file_name, char *output_file_name, tree_node_t *root)
 {
     int choice;
-    if(g_flag_check_change_file == 0)
+
+    flag_check_change_file_from_keyboard = 0; // reset output file in keyboard because user switches to reading from the file
+    if(flag_check_change_file == 0)
     {
+        input_file(file_name);
         change_file(output_file_name);
     }
     system("clear");
@@ -49,12 +53,12 @@ void data_from_file_menu(char *file_name, char *output_file_name, tree_node_t *r
             printf("\n");
             break;
         case CHANGE_FILE:
-            g_flag_check_change_file = 1;
-            printf(">> New: ");
+            flag_check_change_file++;
+            printf(">> New: \n");
             input_file(file_name);
             change_file(output_file_name);
-            data_from_file_menu(file_name, output_file_name, root);
-            g_flag_check_change_file = 0;
+            choice = 0;
+            printf("AFT: h = %d\n", flag_check_change_file);
             break;
         case EXIT:
             printf(">> Exit. Back to main program\n");
@@ -68,14 +72,17 @@ void data_from_file_menu(char *file_name, char *output_file_name, tree_node_t *r
 void data_from_keyboard_menu(char *output_file_name, tree_node_t *root)
 {
     int choice;
-    if(g_flag_check_change_file == 0)
+
+    flag_check_change_file = 0; // reset input/output file because user switches to reading from the keyboard
+    if(flag_check_change_file_from_keyboard == 0)
     {
         change_file(output_file_name);
     }
+    
     system("clear");
     do
     {
-        printf("\n\n***************************************\n");
+        printf("\n***************************************\n");
         printf(">> You choose enter data: KEYBOARD\n");
         printf(">> Your output file name: %s", output_file_name);
         printf("\n=======================================");
@@ -101,11 +108,10 @@ void data_from_keyboard_menu(char *output_file_name, tree_node_t *root)
             printf("\n");
             break;
         case CHANGE_FILE:
-            g_flag_check_change_file = 1;
+            flag_check_change_file_from_keyboard++;
             printf(">> New: ");
             change_file(output_file_name);
-            data_from_keyboard_menu(output_file_name, root);
-            g_flag_check_change_file = 0;
+            choice = 0;
             break;
         case EXIT:
             printf(">> Exit. Back to main program\n");
@@ -139,7 +145,6 @@ void main_menu(char *file_name, char *output_file_name, tree_node_t *root)
             break;
         case READ_FILE:
             printf(">> You choose enter data from FILE\n");
-            input_file(file_name);
             data_from_file_menu(file_name, output_file_name, root);
             break;
         case EXIT_PROGRAM:

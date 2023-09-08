@@ -17,10 +17,29 @@ typedef struct tree_node
     struct tree_node *p_right;
 } tree_node_t;
 
-// Function to create a new node for the binary tree
+/**
+ * @brief Create a new node for the binary tree.
+ *
+ * This function creates a new node for the binary tree with the specified data.
+ *
+ * @param data The data value to be stored in the new node.
+ * 
+ * @return A pointer to the newly created node.
+ */
 tree_node_t *create_node(char data);
 
-// Function to insert a character into the binary tree
+/**
+ * @brief Insert a character into the binary tree.
+ *
+ * This function inserts a character along with its corresponding code into the binary tree.
+ *
+ * @param root The root of the binary tree.
+ * 
+ * @param character The character to be inserted.
+ * 
+ * @param code The code associated with the character.
+ */
 void insert(tree_node_t *root, char character, char *code);
+
 
 #endif
