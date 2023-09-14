@@ -60,7 +60,7 @@ Description: validate input data from keyboard
 //     return input;
 // }
 
-static int Clean_stdin()
+static int clean_stdin()
 {
     while(getchar() != '\n');
     return 1;
@@ -85,7 +85,7 @@ static int get_input_int()
     unsigned int i =0;
     char c;
 
-    while ((scanf("%d", &input) != 1 || input < 1) && Clean_stdin())
+    while ((scanf("%d", &input) != 1 || input < 1) && clean_stdin())
     {
         printf("Input valid!! Enter again:  ");
     }
@@ -150,7 +150,7 @@ void print_matrix(matrix_t *matrix) {
 Function name: calculate_sum_matrix
 Description: Calculate sum of matrix A and matrix B
 ===================================================================*/
-matrix_t* calculate_sum_matrix(matrix_t *p_matrix_a, matrix_t *p_matrix_b) {
+matrix_t* calculate_sum_matrix(matrix_t* p_matrix_a, matrix_t* p_matrix_b) {
     int i = 0;
     int j = 0;
 
@@ -158,7 +158,7 @@ matrix_t* calculate_sum_matrix(matrix_t *p_matrix_a, matrix_t *p_matrix_b) {
         return NULL;
     }
 
-    matrix_t *p_sum = init_matrix(p_matrix_a->row,p_matrix_a->col);
+    matrix_t* p_sum = init_matrix(p_matrix_a->row,p_matrix_a->col);
     for(i = 0; i < p_matrix_a->row; i++) {
         for(j = 0; j < p_matrix_a->col; j++) {
             p_sum->array[i][j] = p_matrix_a->array[i][j] + p_matrix_b->array[i][j];
@@ -171,14 +171,14 @@ matrix_t* calculate_sum_matrix(matrix_t *p_matrix_a, matrix_t *p_matrix_b) {
 Function name: calculate_product_matrix
 Description: Calculate product of matrix A and matrix B
 ===================================================================*/
-matrix_t* calculate_product_matrix(matrix_t *p_matrix_a, matrix_t *p_matrix_b) { 
+matrix_t* calculate_product_matrix(matrix_t* p_matrix_a, matrix_t* p_matrix_b) { 
     int i = 0;
     int j = 0;
     if(check_row_col_matrix(p_matrix_a->row, p_matrix_a->col, p_matrix_b->row, p_matrix_b->col, 0)) {
         return NULL;
     }
 
-    matrix_t *p_product_matrix = init_matrix(p_matrix_a->row,p_matrix_b->col);
+    matrix_t* p_product_matrix = init_matrix(p_matrix_a->row,p_matrix_b->col);
     for(i = 0; i < p_matrix_a->row ; i++) {
         for(j = 0; j < p_matrix_b->col; j++) {
             p_product_matrix->array[i][j] = 0;

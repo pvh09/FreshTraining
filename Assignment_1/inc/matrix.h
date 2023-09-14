@@ -50,7 +50,7 @@ void print_matrix(matrix_t *matrix);
 *
 * @param *p_matrix_b <Inpointer elements of matrix B>
 */
-matrix_t* calculate_sum_matrix(matrix_t *p_matrix_a, matrix_t *p_matrix_b);
+matrix_t* calculate_sum_matrix(matrix_t* p_matrix_a, matrix_t* p_matrix_b);
 
 /*!
 * @brief <release memory>
@@ -59,7 +59,7 @@ matrix_t* calculate_sum_matrix(matrix_t *p_matrix_a, matrix_t *p_matrix_b);
 *
 * @param *p_matrix_b <pointer elements of matrix B>
 */
-matrix_t* calculate_product_matrix(matrix_t *p_matrix_a, matrix_t *p_matrix_b);
+matrix_t* calculate_product_matrix(matrix_t* p_matrix_a, matrix_t* p_matrix_b);
 
 /*!
 * @brief <release memory>

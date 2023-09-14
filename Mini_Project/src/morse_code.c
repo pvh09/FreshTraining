@@ -159,15 +159,15 @@ int encode_file(const char *input_file_name, const char *output_file_name, tree_
 }
 
 // Function to free the memory of the Morse code tree
-void freeMorseCodeTree(tree_node_t *root)
+void free_morse_code_tree(tree_node_t *root)
 {
     if (root == NULL)
     {
         return;
     }
 
-    freeMorseCodeTree(root->p_left);
-    freeMorseCodeTree(root->p_right);
+    free_morse_code_tree(root->p_left);
+    free_morse_code_tree(root->p_right);
     free(root);
 }
 

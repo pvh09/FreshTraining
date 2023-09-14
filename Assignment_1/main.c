@@ -1,7 +1,8 @@
 #include "matrix.h"
 
 int main() {
-    matrix_t *p_matrix_a, *p_matrix_b;
+    matrix_t* p_matrix_a = NULL;
+    matrix_t* p_matrix_b = NULL;
     int row_matrix_a = 0; 
     int row_matrix_b = 0; 
     int col_matrix_a = 0; 
