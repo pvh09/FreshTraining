@@ -43,7 +43,7 @@ void get_input_integer(int *integer_number)
 double calculate_square_integer(int integer_number)
 {
     double square = 0.0f;
-    //square = pow(integer_number, 2);
+    // square = pow(integer_number, 2);
     square = (long long)integer_number * integer_number;
     return square;
 }
