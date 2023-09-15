@@ -1,10 +1,12 @@
 #include "employee.h"
 
-char* strdup(const char* src) {
-    char* dst = malloc(strlen (src) + 1);
-    if (dst == NULL) return NULL;          
-    strcpy(dst, src);                      
-    return dst;                            
+char *strdup(const char *src)
+{
+    char *dst = malloc(strlen(src) + 1);
+    if (dst == NULL)
+        return NULL;
+    strcpy(dst, src);
+    return dst;
 }
 
 // flag: 1 -- accept input is int, double
@@ -13,7 +15,7 @@ double validate_num_input(bool flag)
 {
     char input_string[20] = {0};
     double input = -1;
-    char* p_end;
+    char *p_end = {0};
     while (1)
     {
         __fpurge(stdin);
@@ -49,44 +51,54 @@ double validate_num_input(bool flag)
 }
 
 // Function to validate input and return only string containing alphabetic characters
-static char* validate_string_input() {
+static char *validate_string_input()
+{
     char input_string[MAX_EMPLOYEES] = {0};
-    char* result = NULL;
+    char *result = NULL;
 
-    while (1) {
+    while (1)
+    {
         __fpurge(stdin);
         fgets(input_string, sizeof(input_string), stdin);
-        input_string[strcspn(input_string, "\n")] = '\0'; 
-        if (strlen(input_string) > 50 || strlen(input_string) ==0) {
+        input_string[strcspn(input_string, "\n")] = '\0';
+        if (strlen(input_string) > 50 || strlen(input_string) == 0)
+        {
             printf("\nWARNING: Input exceeds the limit of 50 characters or no detect input. Please enter again: ");
             continue;
         }
-        
+
         int valid_input = 1;
-        for (int i = 0; input_string[i] != '\0'; i++) {
-            if (!isalpha(input_string[i]) && !isspace(input_string[i])) {
+        for (int i = 0; input_string[i] != '\0'; i++)
+        {
+            if (!isalpha(input_string[i]) && !isspace(input_string[i]))
+            {
                 valid_input = 0;
                 break;
             }
         }
-        
-        if (valid_input) {
+
+        if (valid_input)
+        {
             result = strdup(input_string);
             return result;
-        } else {
+        }
+        else
+        {
             printf("\nWARNING: Only input is text. Please enter again: ");
         }
     }
     return result;
 }
 
-static int check_unique_id(employee_list** list_employee) {
+static int check_unique_id(employee_list **list_employee)
+{
     int new_id;
     bool is_unique = false;
-    do {
+    do
+    {
         printf("ID: ");
         new_id = (int)validate_num_input(0);
-        employee_list* p_current = *list_employee;
+        employee_list *p_current = *list_employee;
         is_unique = true;
 
         while (p_current != NULL)
@@ -134,31 +146,33 @@ static bool is_valid_date(Date date)
     return date.day >= 1 && date.day <= max_days;
 }
 
-void input_number_of_employee(int* p_number)
+void input_number_of_employee(int *p_number)
 {
     printf("Enter the number of p_employees (1 - %d): ", MAX_EMPLOYEES);
     *p_number = validate_num_input(0); // 0: only input is unsigned int
 
-    while (*p_number < 1 || *p_number > MAX_EMPLOYEES) {
+    while (*p_number < 1 || *p_number > MAX_EMPLOYEES)
+    {
         printf("Invalid number of employee (employee < 50).\n");
         *p_number = validate_num_input(0);
     }
 }
 
-static void get_date_employee(Employee* p_employee){
+static void get_date_employee(Employee *p_employee)
+{
     do
     {
         printf("Start Date (day month year): ");
         __fpurge(stdin);
         scanf("%d %d %d", &p_employee->start_date.day, &p_employee->start_date.month, &p_employee->start_date.year);
     } while (!is_valid_date(p_employee->start_date));
-    
 }
 
-Employee* input_employee_infomation_list(int number, employee_list** list_employee)
+Employee *input_employee_infomation_list(int number, employee_list **list_employee)
 {
-    Employee* p_new_employee = (Employee* )malloc(sizeof(Employee));
-    if (p_new_employee == NULL) {
+    Employee *p_new_employee = (Employee *)malloc(sizeof(Employee));
+    if (p_new_employee == NULL)
+    {
         return NULL;
     }
 
@@ -170,7 +184,7 @@ Employee* input_employee_infomation_list(int number, employee_list** list_employ
     p_new_employee->full_name = validate_string_input();
 
     printf("Department: ");
-    p_new_employee->department = (char* )malloc(MAX_EMPLOYEES * sizeof(char));
+    p_new_employee->department = (char *)malloc(MAX_EMPLOYEES * sizeof(char));
     scanf(" %[^\n]", p_new_employee->department);
 
     printf("Salary: ");
@@ -181,31 +195,31 @@ Employee* input_employee_infomation_list(int number, employee_list** list_employ
     return p_new_employee;
 }
 
-
-void insert_employee(employee_list** list_employee, Employee* p_new_employee)
+void insert_employee(employee_list **list_employee, Employee *p_new_employee)
 {
-    employee_list* new_data = malloc(sizeof(employee_list));
+    employee_list *new_data = malloc(sizeof(employee_list));
     new_data->employee_info = p_new_employee;
     new_data->next = NULL;
 
-    employee_list* temp = *list_employee;
+    employee_list *temp = *list_employee;
 
-    if (*list_employee == NULL) {
+    if (*list_employee == NULL)
+    {
         *list_employee = new_data;
         return;
     }
 
-    while (temp->next != NULL) {
+    while (temp->next != NULL)
+    {
         temp = temp->next;
     }
 
     temp->next = new_data;
 }
 
-
-void print_employee_table(employee_list* emp_list)
+void print_employee_table(employee_list *emp_list)
 {
-    employee_list* temp = emp_list;
+    employee_list *temp = emp_list;
     printf("\n%-5s %-20s %-15s %-10s %-12s\n", "ID", "Full Name", "Department", "Salary", "Start Date");
     printf("------------------------------------------------------------------\n");
     while (temp != NULL)
@@ -216,11 +230,11 @@ void print_employee_table(employee_list* emp_list)
     }
 }
 
-void free_employee_list(employee_list* p_head)
+void free_employee_list(employee_list *p_head)
 {
     while (p_head != NULL)
     {
-        employee_list* p_temp = p_head;
+        employee_list *p_temp = p_head;
         p_head = p_head->next;
         if (p_temp->employee_info->full_name != NULL)
         {
@@ -237,24 +251,27 @@ void free_employee_list(employee_list* p_head)
     }
 }
 
-void free_employee(Employee* p_current){
-    if (p_current->full_name != NULL) {
+void free_employee(Employee *p_current)
+{
+    if (p_current->full_name != NULL)
+    {
         free(p_current->full_name);
     }
-    if (p_current->department != NULL) {
+    if (p_current->department != NULL)
+    {
         free(p_current->department);
     }
     free(p_current);
     p_current = NULL;
 }
 
-void add_employee(employee_list** list_employee)
+void add_employee(employee_list **list_employee)
 {
     int number_employee = 0;
-    Employee* p_new_employee = NULL;
+    Employee *p_new_employee = NULL;
 
     input_number_of_employee(&number_employee);
-    
+
     for (int i = 0; i < number_employee; i++)
     {
         p_new_employee = input_employee_infomation_list(i, list_employee);
@@ -262,17 +279,23 @@ void add_employee(employee_list** list_employee)
     }
 }
 
-void remove_employee_by_id(employee_list** p_head) {
-    employee_list* p_current = *p_head;
-    employee_list* previous = NULL;
+void remove_employee_by_id(employee_list **p_head)
+{
+    employee_list *p_current = *p_head;
+    employee_list *previous = NULL;
     int remove_id = 0;
     printf("Enter employee ID need to remove: ");
     remove_id = (int)validate_num_input(0);
-    while (p_current != NULL) {
-        if (p_current->employee_info->id == remove_id) {
-            if (previous == NULL) {
+    while (p_current != NULL)
+    {
+        if (p_current->employee_info->id == remove_id)
+        {
+            if (previous == NULL)
+            {
                 *p_head = p_current->next;
-            } else {
+            }
+            else
+            {
                 previous->next = p_current->next;
             }
             free_employee(p_current->employee_info);
@@ -285,11 +308,11 @@ void remove_employee_by_id(employee_list** p_head) {
     }
     printf("Employee with ID %d not found.\n", remove_id);
 }
-    
 
-static void check_full_name_remove(employee_list* p_current, employee_list** p_head, char* full_name){
-// Remove the employee with the given full name
-    employee_list* p_previous = NULL;
+static void check_full_name_remove(employee_list *p_current, employee_list **p_head, char *full_name)
+{
+    // Remove the employee with the given full name
+    employee_list *p_previous = NULL;
     p_current = *p_head;
     while (p_current != NULL)
     {
@@ -313,7 +336,8 @@ static void check_full_name_remove(employee_list* p_current, employee_list** p_h
     }
 }
 
-static int count_employee(employee_list* p_current, char* full_name){
+static int count_employee(employee_list *p_current, char *full_name)
+{
     int match_count = 0;
     while (p_current != NULL)
     {
@@ -326,32 +350,34 @@ static int count_employee(employee_list* p_current, char* full_name){
     return match_count;
 }
 
-void remove_employee_by_full_name(employee_list** p_head)
+void remove_employee_by_full_name(employee_list **p_head)
 {
-    employee_list* p_current = *p_head;
-    char* p_full_name;
+    employee_list *p_current = *p_head;
+    char *p_full_name = {0};
 
     printf("Full name of employee need to remove: ");
     p_full_name = validate_string_input();
     int match_count = count_employee(p_current, p_full_name);
 
-    if (match_count == 0) {
+    if (match_count == 0)
+    {
         printf("No employee with full name '%s' found.\n", p_full_name);
     }
-    else if (match_count == 1) {
+    else if (match_count == 1)
+    {
         check_full_name_remove(p_current, p_head, p_full_name);
     }
-    else {
+    else
+    {
         printf("NOTICE: There are %d p_employees in list!!\n", match_count);
         printf("WARNING: Must be delete employee by ID: \n");
         remove_employee_by_id(p_head);
     }
 
     free(p_full_name);
-
 }
 
-static employee_list* merge(employee_list* left, employee_list* right, int (*compare)(const void *, const void *))
+static employee_list *merge(employee_list *left, employee_list *right, int (*compare)(const void *, const void *))
 {
     if (left == NULL)
     {
@@ -362,7 +388,7 @@ static employee_list* merge(employee_list* left, employee_list* right, int (*com
         return left;
     }
 
-    employee_list* result = NULL;
+    employee_list *result = NULL;
 
     if (compare(left, right) <= 0)
     {
@@ -381,39 +407,39 @@ static employee_list* merge(employee_list* left, employee_list* right, int (*com
 // Comparison function for increasing salary
 int compare_increase_salary(const void *p_a, const void *p_b)
 {
-    const employee_list* p_emp1 = *(const employee_list** )p_a;
-    const employee_list* p_emp2 = *(const employee_list** )p_b;
+    const employee_list *p_emp1 = *(const employee_list **)p_a;
+    const employee_list *p_emp2 = *(const employee_list **)p_b;
     return (p_emp1->employee_info->salary > p_emp2->employee_info->salary) - (p_emp1->employee_info->salary < p_emp2->employee_info->salary);
 }
 
 // Comparison function for decreasing salary
 int compare_decrease_salary(const void *p_a, const void *p_b)
 {
-    const employee_list* p_emp1 = *(const employee_list** )p_a;
-    const employee_list* p_emp2 = *(const employee_list** )p_b;
+    const employee_list *p_emp1 = *(const employee_list **)p_a;
+    const employee_list *p_emp2 = *(const employee_list **)p_b;
     return (p_emp2->employee_info->salary > p_emp1->employee_info->salary) - (p_emp2->employee_info->salary < p_emp1->employee_info->salary);
 }
 
 // Comparison function for full name alphabetically
 int compare_by_name(const void *p_a, const void *p_b)
 {
-    const employee_list* p_emp1 = *(const employee_list** )p_a;
-    const employee_list* p_emp2 = *(const employee_list** )p_b;
+    const employee_list *p_emp1 = *(const employee_list **)p_a;
+    const employee_list *p_emp2 = *(const employee_list **)p_b;
     return strcmp(p_emp1->employee_info->full_name, p_emp2->employee_info->full_name);
 }
 
-void merge_sort(employee_list** p_head, int (*compare)(const void *, const void *))
+void merge_sort(employee_list **p_head, int (*compare)(const void *, const void *))
 {
     if (*p_head == NULL || (*p_head)->next == NULL)
     {
         return;
     }
-    employee_list* p_current = *p_head;
-    employee_list* left = NULL;
-    employee_list* right = NULL;
+    employee_list *p_current = *p_head;
+    employee_list *left = NULL;
+    employee_list *right = NULL;
 
-    employee_list* mid = *p_head;
-    employee_list* fast = (*p_head)->next;
+    employee_list *mid = *p_head;
+    employee_list *fast = (*p_head)->next;
 
     while (fast != NULL)
     {
@@ -435,17 +461,20 @@ void merge_sort(employee_list** p_head, int (*compare)(const void *, const void 
 
     while (left != NULL && right != NULL)
     {
-        employee_list* p_temp;
-        if (compare(&left, &right) <= 0) {
+        employee_list *p_temp;
+        if (compare(&left, &right) <= 0)
+        {
             p_temp = left;
             left = left->next;
         }
-        else {
+        else
+        {
             p_temp = right;
             right = right->next;
         }
 
-        if (*p_head == NULL) {
+        if (*p_head == NULL)
+        {
             *p_head = p_temp;
             p_current = *p_head;
         }
@@ -455,10 +484,12 @@ void merge_sort(employee_list** p_head, int (*compare)(const void *, const void 
             p_current = p_current->next;
         }
     }
-    if (left != NULL){
+    if (left != NULL)
+    {
         p_current->next = left;
     }
-    else {
+    else
+    {
         p_current->next = right;
     }
 }

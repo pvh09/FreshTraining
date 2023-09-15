@@ -265,7 +265,7 @@ void decode_keyboard(tree_node_t *root, const char *output_file)
     }
     __fpurge(stdin);
     printf("Enter Morse code (separated by spaces): ");
-    char input[MAX_FILE]; // Adjust the buffer size as needed
+    char input[MAX_FILE] = {0}; // Adjust the buffer size as needed
     fgets(input, sizeof(input), stdin);
 
     char *token = strtok(input, " \n"); // Tokenize based on space and newline

@@ -12,7 +12,7 @@
 // Structure for a node in the binary tree
 typedef struct tree_node
 {
-    char data;
+    char data = {0};
     struct tree_node *p_left;
     struct tree_node *p_right;
 } tree_node_t;
