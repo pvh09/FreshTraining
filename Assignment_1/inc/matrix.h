@@ -32,7 +32,7 @@ matrix_t* init_matrix( int row, int col);
 * 
 * @param *p_matrix [In] <pointer point to struct Matrix of the matrix>
 */
-void create_matrix(matrix_t *matrix);
+void create_matrix(matrix_t* *matrix);
 
 /*!
 * @brief <Print the matrix to the terminal>
@@ -41,7 +41,7 @@ void create_matrix(matrix_t *matrix);
 *
 *return None
 */
-void print_matrix(matrix_t *matrix);
+void print_matrix(matrix_t* matrix);
 
 /*!
 * @brief <Calculate sum of matrix A and matrix B>
@@ -66,7 +66,7 @@ matrix_t* calculate_product_matrix(matrix_t* p_matrix_a, matrix_t* p_matrix_b);
 * 
 * @param *p_matrix_a <pointer elements of matrix>
 */
-void free_matrix(matrix_t *matrix);
+void free_matrix(matrix_t* matrix);
 
 /*!
 * @brief <check validate mumber of row, column>

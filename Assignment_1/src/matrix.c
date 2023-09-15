@@ -4,7 +4,7 @@
 Function name: free_matrix
 Description: release memory
 ===================================================================*/
-void free_matrix(matrix_t *matrix) {
+void free_matrix(matrix_t* matrix) {
     if(matrix != NULL) {
         for(int i = 0; i < matrix->row; i++) {
             free(matrix->array[i]);
@@ -35,7 +35,7 @@ static bool check_row_col_matrix(int row_matrix_a, int col_matrix_a, int row_mat
 /*FUNCTION==========================================================
 Function name: check_valid
 Description: validate input data from keyboard
-====================void free_matrix(matrix_t *matrix);===============================================*/
+====================void free_matrix(matrix_t* matrix);===============================================*/
 
 // static double check_valid(bool flag) {
 //     char input_string[20] = {0};
@@ -95,7 +95,7 @@ static int get_input_int()
 /*FUNCTION==========================================================
 ===================================================================*/
 matrix_t* init_matrix(int row, int col) {
-    matrix_t* p_matrix = (matrix_t *)malloc(sizeof(matrix_t));
+    matrix_t* p_matrix = (matrix_t* )malloc(sizeof(matrix_t));
     p_matrix->row = row;
     p_matrix->col = col;
 
@@ -121,7 +121,7 @@ void input_number_of_array( int *row, int *col) {
 Function name: create_matrix
 Description: Enter input of matrix
 ===================================================================*/
-void create_matrix(matrix_t *matrix) {
+void create_matrix(matrix_t* matrix) {
     int i = 0;
     int j = 0;
     for(i; i < matrix->row; i++) {
@@ -136,7 +136,7 @@ void create_matrix(matrix_t *matrix) {
 Function name: print_matrix
 Description: Print output of matrix
 ===================================================================*/
-void print_matrix(matrix_t *matrix) {
+void print_matrix(matrix_t* matrix) {
     int i = 0;
     int j = 0;
     for(i = 0; i < matrix->row; i++) {
