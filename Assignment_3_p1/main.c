@@ -1,6 +1,7 @@
 #include "file.h"
 
-int main() {
+int main()
+{
     char file_name[MAX_FILE_NAME] = {0};
     input_file(file_name);
 

@@ -16,7 +16,7 @@
  *
  * @return None.
  */
-void input_file(char* file_name);
+void input_file(char *file_name);
 
 /**
  * @brief Get the size of a given file.
@@ -27,7 +27,7 @@ void input_file(char* file_name);
  *
  * @return The size of the file, or -1 if an error occurred.
  */
-long get_file_size(char* file_name);
+long get_file_size(char *file_name);
 
 /**
  * @brief Output the size of a file to the console.
@@ -35,10 +35,10 @@ long get_file_size(char* file_name);
  * This function displays the size of a file along with its name.
  *
  * @param[in] filename - Pointer to a character array containing the name of the file.
- * 
+ *
  * @param[in] size - The size of the file.
  *
  * @return None.
  */
-void output_size_file(char* filename, long size);
+void output_size_file(char *filename, long size);
 #endif

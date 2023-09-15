@@ -21,8 +21,8 @@ struct Date
 struct Employee
 {
     int id;
-    char *full_name = {0};
-    char *department = {0};
+    char *full_name;
+    char *department;
     double salary;
     struct Date start_date;
 };
