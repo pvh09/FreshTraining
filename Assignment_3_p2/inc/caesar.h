@@ -9,13 +9,14 @@
 
 #define MAX_FILE_NAME 100
 
-typedef enum {
+typedef enum
+{
     EXIT_PROGRAM,
     ENCRYPT,
     DECRYPT,
     CHANGE_SHIFT,
     CHANGE_OUTPUT_FILE
-}option_t;
+} option_t;
 
 /*!
  * @brief Validate and input a numerical value.
@@ -42,39 +43,39 @@ int input_shift(int shift);
  *
  * @param file_name A character pointer to store the input file name.
  */
-void input_file(char* file_name);
+void input_file(char *file_name);
 
 /**
  * @brief Encrypts the content of a file using the Caesar cipher algorithm.
  *
  * @param file_name The name of the input file.
- * 
+ *
  * @param shift The shift value for encryption.
- * 
+ *
  * @param flag The encryption flag (true for positive shift, false for negative shift).
- * 
+ *
  * @param output_file_name The name of the output file to write the encrypted content.
  */
-void encrypt(char* file_name, int shift, bool flag, char* output_file_name);
+void encrypt(char *file_name, int shift, bool flag, char *output_file_name);
 
 /**
  * @brief Decrypts the content of a file that was encrypted using the Caesar cipher algorithm.
  *
  * @param file_name The name of the input file.
- * 
+ *
  * @param shift The shift value for decryption.
- * 
+ *
  * @param flag The decryption flag (true for positive shift, false for negative shift).
- * 
+ *
  * @param output_file_name The name of the output file to write the decrypted content.
  */
-void decrypt(char *file_name, int shift, bool flag, char* output_file_name);
+void decrypt(char *file_name, int shift, bool flag, char *output_file_name);
 
 /**
  * @brief Changes the output file name.
  *
  * @param output_file_name A character pointer to store the new output file name.
  */
-void change_output_file(char* output_file_name);
+void change_output_file(char *output_file_name);
 
 #endif

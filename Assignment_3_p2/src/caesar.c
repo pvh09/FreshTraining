@@ -9,12 +9,12 @@ double validate_num_input()
     {
         __fpurge(stdin);
         scanf("%19s", input_string);
-            long long intPart = strtoll(input_string, &p_end, 10);
-            if (p_end != input_string && *p_end == '\0' && intPart >= 0 && intPart < 26)
-            {
-                input = intPart;
-                return input;
-            }
+        long long intPart = strtoll(input_string, &p_end, 10);
+        if (p_end != input_string && *p_end == '\0' && intPart >= 0 && intPart < 26)
+        {
+            input = intPart;
+            return input;
+        }
         printf("\nWARNING: ");
         printf(">> Only input is integer bigger than 0. Please enter again: ");
     }
@@ -32,16 +32,18 @@ int input_shift(int shift)
 static bool is_invalid_file_name(const char *file_name)
 {
     const char *invalid_chars = "\\/:*?\"<>|";
-    for (int i = 0; i < strlen(invalid_chars); i++) {
-        if (strchr(file_name, invalid_chars[i]) != NULL) {
+    for (int i = 0; i < strlen(invalid_chars); i++)
+    {
+        if (strchr(file_name, invalid_chars[i]) != NULL)
+        {
             return false;
         }
     }
     return true;
 }
 
-//check file output is existed in folder
-static bool is_exist_out_file(char* file_name)
+// check file output is existed in folder
+static bool is_exist_out_file(char *file_name)
 {
     char ch = {0};
     FILE *fp;
@@ -51,33 +53,35 @@ static bool is_exist_out_file(char* file_name)
         printf(">> Create a output file success!!\n");
         return true;
     }
-    else 
+    else
     {
         printf("Do you want to append output file (Y) or (N)? \n");
         printf("You choose: ");
         ch = getchar();
-        if(ch == 'Y')
+        if (ch == 'Y')
         {
             printf(">> Append output file success!!\n");
             return true;
         }
     }
     printf(">> This file is existed in folder. Please enter other output file!!\n");
-    if(fp!= NULL) 
+    if (fp != NULL)
     {
         fclose(fp);
     }
     return false;
 }
 
-//check length of output name and check name of ouput have no " \/:*?\"<>| "
-static bool is_over_range(char* file_name){
+// check length of output name and check name of ouput have no " \/:*?\"<>| "
+static bool is_over_range(char *file_name)
+{
     bool valid_input;
     bool check_exist_file = false;
-    if(strlen(file_name) > MAX_FILE_NAME){
+    if (strlen(file_name) > MAX_FILE_NAME)
+    {
         printf(">> File name too long. Please enter a shorter file name.\n");
         return check_exist_file;
-    } 
+    }
 
     valid_input = is_invalid_file_name(file_name);
     if (!valid_input)
@@ -92,23 +96,26 @@ static bool is_over_range(char* file_name){
     return check_exist_file;
 }
 
-//check if enter "/////////" => false
-static bool check_digit(char* file_name){
+// check if enter "/////////" => false
+static bool check_digit(char *file_name)
+{
     int i = 0;
-    for(i; i < strlen(file_name); i++){
-        if(file_name[i] != '\\' && file_name[i] != '/' && file_name[i] != '.'){
+    for (i; i < strlen(file_name); i++)
+    {
+        if (file_name[i] != '\\' && file_name[i] != '/' && file_name[i] != '.')
+        {
             return true;
         }
     }
     return false;
 }
 
-//check file input is existed in folder
-static bool is_exist_input_file(char* file_name)
+// check file input is existed in folder
+static bool is_exist_input_file(char *file_name)
 {
     FILE *fp;
     fp = fopen(file_name, "r");
-    if (fp == NULL  || !check_digit(file_name))
+    if (fp == NULL || !check_digit(file_name))
     {
         printf(">> WARNING: File does not exsit. Please check folder!!\n");
         return false;
@@ -118,41 +125,48 @@ static bool is_exist_input_file(char* file_name)
     return true;
 }
 
-//check file exist in folder
-static bool check_file_exist(char* file_name, bool check_in_out){
+// check file exist in folder
+static bool check_file_exist(char *file_name, bool check_in_out)
+{
     bool check;
-    if(check_in_out){
+    if (check_in_out)
+    {
         check = is_exist_input_file(file_name);
     }
-    else{
+    else
+    {
         check = is_exist_out_file(file_name);
     }
     return check;
 }
-//enter name of file
-static void get_file_name(char* file_name, bool flag_check_input_output){
+// enter name of file
+static void get_file_name(char *file_name, bool flag_check_input_output)
+{
     __fpurge(stdin);
-    if(flag_check_input_output){
+    if (flag_check_input_output)
+    {
         printf("Enter your input file name: ");
     }
-    else{
+    else
+    {
         printf("Enter your output file name: ");
     }
     fgets(file_name, MAX_FILE_NAME, stdin);
     file_name[strcspn(file_name, "\n")] = '\0';
 }
 
-//enter input file and check name is validate
+// enter input file and check name is validate
 void input_file(char *file_name)
 {
     bool is_file_exist = false;
-    do {
+    do
+    {
         get_file_name(file_name, 1);
         is_file_exist = check_file_exist(file_name, 1);
     } while (!is_file_exist || strlen(file_name) > MAX_FILE_NAME);
 }
 
-void encrypt(char *file_name, int shift, bool flag, char* output_file_name)
+void encrypt(char *file_name, int shift, bool flag, char *output_file_name)
 {
     char ch = {0};
     int temp = shift;
@@ -180,23 +194,23 @@ void encrypt(char *file_name, int shift, bool flag, char* output_file_name)
     fclose(output_file);
 }
 // Function to decrypt the content of a file using Caesar cipher
-void decrypt(char *file_name, int shift, bool flag, char* output_file_name)
+void decrypt(char *file_name, int shift, bool flag, char *output_file_name)
 {
     encrypt(file_name, shift, 0, output_file_name);
 }
 
-void output_file(char* output_file_name)
+void output_file(char *output_file_name)
 {
     bool is_file_exist = false;
-    do {
+    do
+    {
         get_file_name(output_file_name, 0);
-        is_file_exist = is_over_range(output_file_name); 
-        
+        is_file_exist = is_over_range(output_file_name);
+
     } while (!is_file_exist || strlen(output_file_name) > MAX_FILE_NAME);
 }
 
-void change_output_file(char* output_file_name)
+void change_output_file(char *output_file_name)
 {
     output_file(output_file_name);
-    
 }
