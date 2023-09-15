@@ -122,7 +122,7 @@ int encode_file(const char *input_file_name, const char *output_file_name, tree_
     }
 
     // Read input from the file line by line
-    char buffer[1024]; // Adjust the buffer size as needed
+    char buffer[MAX_FILE]; // Adjust the buffer size as needed
     while (fgets(buffer, sizeof(buffer), input) != NULL)
     {
         // Remove the newline character at the end of the line

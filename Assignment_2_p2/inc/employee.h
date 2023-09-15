@@ -11,22 +11,6 @@
 
 #define MAX_EMPLOYEES 50
 
-struct Date
-{
-    int day;
-    int month;
-    int year;
-};
-
-struct Employee
-{
-    int id;
-    char *full_name;
-    char *department;
-    double salary;
-    struct Date start_date;
-};
-
 typedef enum
 {
     TMP,
@@ -47,7 +31,24 @@ typedef enum
     EXIT_SORT
 } option_sort;
 
+struct Date
+{
+    int day;
+    int month;
+    int year;
+};
 typedef struct Date Date;
+
+struct Employee
+{
+    int id;
+    char *full_name;
+    char *department;
+    double salary;
+    struct Date start_date;
+};
+
+
 typedef struct Employee Employee;
 
 struct node
