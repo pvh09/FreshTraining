@@ -30,7 +30,7 @@ typedef enum
  *
  * @param root The root of the tree node structure.
  */
-void main_menu(char *file_name, char *output_file_name, tree_node_t *root);
+void main_menu(char *file_name, char *output_file_name);
 
 /**
  * @brief Data input from the keyboard menu function.
@@ -41,7 +41,7 @@ void main_menu(char *file_name, char *output_file_name, tree_node_t *root);
  *
  * @param root The root of the tree node structure.
  */
-void data_from_keyboard_menu(char *output_file_name, tree_node_t *root);
+void data_from_keyboard_menu(char *output_file_name);
 
 /**
  * @brief Data input from file menu function.
@@ -54,6 +54,6 @@ void data_from_keyboard_menu(char *output_file_name, tree_node_t *root);
  *
  * @param root The root of the tree node structure.
  */
-void data_from_file_menu(char *file_name, char *output_file_name, tree_node_t *root);
+void data_from_file_menu(char *file_name, char *output_file_name);
 
 #endif

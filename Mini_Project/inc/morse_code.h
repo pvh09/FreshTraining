@@ -11,6 +11,8 @@
  */
 tree_node_t *build_morse_code_tree();
 
+void init_tree();
+
 /**
  * @brief Encode a message to Morse code and write it to a file.
  *
@@ -24,7 +26,7 @@ tree_node_t *build_morse_code_tree();
  *
  * @return The status of the encoding operation.
  */
-int encode_file(const char *input_filename, const char *output_filename, tree_node_t *root);
+int encode_file(const char *input_filename, const char *output_filename);
 
 /**
  * @brief Decode Morse code from a file to plain text and write it to another file.
@@ -37,7 +39,7 @@ int encode_file(const char *input_filename, const char *output_filename, tree_no
  *
  * @param root The root of the Morse code tree.
  */
-void decode_file(const char *input_file, const char *output_file, tree_node_t *root);
+void decode_file(const char *input_file, const char *output_file);
 
 /**
  * @brief Decode Morse code entered via the keyboard and write it to a file.
@@ -48,7 +50,7 @@ void decode_file(const char *input_file, const char *output_file, tree_node_t *r
  *
  * @param output_file The name of the output file to store the decoded plain text.
  */
-void decode_keyboard(tree_node_t *root, const char *output_file);
+void decode_keyboard(const char *output_file);
 
 /**
  * @brief Encode a message entered via the keyboard to Morse code and write it to a file.
@@ -61,6 +63,6 @@ void decode_keyboard(tree_node_t *root, const char *output_file);
  *
  * @return The status of the encoding operation (0 for success, -1 for failure).
  */
-int encode_keyboard(const char *output_filename, tree_node_t *root);
+int encode_keyboard(const char *output_filename);
 
 #endif

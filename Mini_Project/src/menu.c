@@ -5,7 +5,7 @@
 static int flag_check_change_file_from_keyboard = 0;
 static int flag_check_change_file = 0;
 
-void data_from_file_menu(char *file_name, char *output_file_name, tree_node_t *root)
+void data_from_file_menu(char *file_name, char *output_file_name)
 {
     int choice;
 
@@ -34,7 +34,7 @@ void data_from_file_menu(char *file_name, char *output_file_name, tree_node_t *r
         switch (choice)
         {
         case ENCODING:
-            int result = encode_file(file_name, output_file_name, root);
+            int result = encode_file(file_name, output_file_name);
             printf("Message: \n");
             read_and_print_file(output_file_name);
             if (result != 0)
@@ -47,7 +47,7 @@ void data_from_file_menu(char *file_name, char *output_file_name, tree_node_t *r
             }
             break;
         case DECODING:
-            decode_file(file_name, output_file_name, root);
+            decode_file(file_name, output_file_name);
             printf("Message: ");
             read_and_print_file(output_file_name);
             printf("\n");
@@ -58,7 +58,6 @@ void data_from_file_menu(char *file_name, char *output_file_name, tree_node_t *r
             input_file(file_name);
             change_file(output_file_name);
             choice = 0;
-            printf("AFT: h = %d\n", flag_check_change_file);
             break;
         case EXIT:
             printf(">> Exit. Back to main program\n");
@@ -69,7 +68,7 @@ void data_from_file_menu(char *file_name, char *output_file_name, tree_node_t *r
     } while (choice != 0);
 }
 
-void data_from_keyboard_menu(char *output_file_name, tree_node_t *root)
+void data_from_keyboard_menu(char *output_file_name)
 {
     int choice;
 
@@ -97,12 +96,12 @@ void data_from_keyboard_menu(char *output_file_name, tree_node_t *root)
         switch (choice)
         {
         case ENCODING:
-            int result = encode_keyboard(output_file_name, root);
+            int result = encode_keyboard(output_file_name);
             printf("Message: ");
             read_and_print_file(output_file_name);
             break;
         case DECODING:
-            decode_keyboard(root, output_file_name);
+            decode_keyboard(output_file_name);
             printf("Message: ");
             read_and_print_file(output_file_name);
             printf("\n");
@@ -122,7 +121,7 @@ void data_from_keyboard_menu(char *output_file_name, tree_node_t *root)
     } while (choice != 0);
 }
 
-void main_menu(char *file_name, char *output_file_name, tree_node_t *root)
+void main_menu(char *file_name, char *output_file_name)
 {
     int choice;
     system("clear");
@@ -141,11 +140,11 @@ void main_menu(char *file_name, char *output_file_name, tree_node_t *root)
         {
         case KEYBOARD_DATA:
             printf(">> You choose enter data from keyboard\n");
-            data_from_keyboard_menu(output_file_name, root);
+            data_from_keyboard_menu(output_file_name);
             break;
         case READ_FILE:
             printf(">> You choose enter data from FILE\n");
-            data_from_file_menu(file_name, output_file_name, root);
+            data_from_file_menu(file_name, output_file_name);
             break;
         case EXIT_PROGRAM:
             printf(">> Exiting program.\n");

@@ -2,6 +2,8 @@
 #include "binary_tree.h"
 #include "file_handling.h"
 
+tree_node_t *g_root = NULL;
+
 char *map_morse_code(char character)
 {
     switch (character)
@@ -67,15 +69,20 @@ char *map_morse_code(char character)
 
 tree_node_t *build_morse_code_tree()
 {
-    tree_node_t *root = create_node('\0');
+    g_root = create_node('\0');
     char characters[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 ";
     // Loop through the characters array and insert into the tree
     for (int i = 0; characters[i] != '\0'; i++)
     {
-        insert(root, characters[i], map_morse_code(characters[i]));
+        insert(g_root, characters[i], map_morse_code(characters[i]));
     }
 
-    return root;
+    return g_root;
+}
+
+void init_tree(const char *input_file_name, const char *output_file_name)
+{
+    g_root = build_morse_code_tree();
 }
 
 void encode_character(char character, FILE *output)
@@ -102,7 +109,7 @@ void encode_morse(tree_node_t *root, char c, FILE *output)
 }
 
 // Function to handle file I/O and encoding process
-int encode_file(const char *input_file_name, const char *output_file_name, tree_node_t *root)
+int encode_file(const char *input_file_name, const char *output_file_name)
 {
     // Open the input file
     FILE *input = fopen(input_file_name, "r");
@@ -135,11 +142,11 @@ int encode_file(const char *input_file_name, const char *output_file_name, tree_
             if (c == ' ')
             {
                 // Use the special character for space
-                encode_morse(root, ' ', output);
+                encode_morse(g_root, ' ', output);
             }
             else
             {
-                encode_morse(root, c, output);
+                encode_morse(g_root, c, output);
             }
 
             // Add a space after each encoded character (except for the last one)
@@ -159,16 +166,17 @@ int encode_file(const char *input_file_name, const char *output_file_name, tree_
 }
 
 // Function to free the memory of the Morse code tree
-void free_morse_code_tree(tree_node_t *root)
+void free_morse_code_tree()
 {
-    if (root == NULL)
+    if (g_root == NULL)
     {
         return;
     }
 
-    free_morse_code_tree(root->p_left);
-    free_morse_code_tree(root->p_right);
-    free(root);
+    free_morse_code_tree(g_root->p_left);
+    free_morse_code_tree(g_root->p_right);
+    free(g_root);
+    g_root = NULL;
 }
 
 // Function to replace '/' with a space in the output file
@@ -178,9 +186,9 @@ void handle_slash(FILE *output)
 }
 
 // Function to decode the Morse code and write the corresponding character to the output file
-void decode_morse_code(const char *morse_code, tree_node_t *root, FILE *output)
+void decode_morse_code(const char *morse_code, FILE *output)
 {
-    tree_node_t *current_node = root;
+    tree_node_t *current_node = g_root;
     for (int i = 0; morse_code[i] != '\0'; i++)
     {
         if (morse_code[i] == '.')
@@ -196,7 +204,7 @@ void decode_morse_code(const char *morse_code, tree_node_t *root, FILE *output)
 }
 
 // Function to handle individual tokens (Morse code or '/')
-void handle_token(const char *token, tree_node_t *root, FILE *output)
+void handle_token(const char *token, FILE *output)
 {
     if (strcmp(token, "/") == 0)
     {
@@ -216,12 +224,12 @@ void handle_token(const char *token, tree_node_t *root, FILE *output)
                 strcat(morse_code, "-");
             }
         }
-        decode_morse_code(morse_code, root, output);
+        decode_morse_code(morse_code, output);
     }
 }
 
 // Function to decode Morse code from an input file and write the decoded text to an output file
-void decode_file(const char *input_file, const char *output_file, tree_node_t *root)
+void decode_file(const char *input_file, const char *output_file)
 {
     FILE *input = fopen(input_file, "r");
     if (input == NULL)
@@ -244,7 +252,7 @@ void decode_file(const char *input_file, const char *output_file, tree_node_t *r
         char *token = strtok(line, " \n"); // Tokenize based on space and newline
         while (token != NULL)
         {
-            handle_token(token, root, output);
+            handle_token(token, output);
             token = strtok(NULL, " \n"); // Move to the next token
         }
         fprintf(output, "\n"); // Add a space after each word
@@ -255,7 +263,7 @@ void decode_file(const char *input_file, const char *output_file, tree_node_t *r
 }
 
 // Function to decode Morse code from user input and write the decoded text to an output file
-void decode_keyboard(tree_node_t *root, const char *output_file)
+void decode_keyboard(const char *output_file)
 {
     FILE *output = fopen(output_file, "w");
     if (output == NULL)
@@ -271,7 +279,7 @@ void decode_keyboard(tree_node_t *root, const char *output_file)
     char *token = strtok(input, " \n"); // Tokenize based on space and newline
     while (token != NULL)
     {
-        handle_token(token, root, output);
+        handle_token(token, output);
         token = strtok(NULL, " \n"); // Move to the next token
     }
 
@@ -279,7 +287,7 @@ void decode_keyboard(tree_node_t *root, const char *output_file)
     printf("Decoding complete. Output saved to %s\n", output_file);
 }
 
-int encode_keyboard(const char *output_filename, tree_node_t *root)
+int encode_keyboard(const char *output_filename)
 {
     int c;
     int rs = 1;
@@ -297,11 +305,11 @@ int encode_keyboard(const char *output_filename, tree_node_t *root)
         if (c == ' ')
         {
             // Use the special character for space
-            encode_morse(root, ' ', output);
+            encode_morse(g_root, ' ', output);
         }
         else
         {
-            encode_morse(root, (char)c, output);
+            encode_morse(g_root, (char)c, output);
         }
 
         // Add a space after each encoded character (except for the last one)
