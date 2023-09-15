@@ -4,7 +4,7 @@ double validate_num_input()
 {
     char input_string[20] = {0};
     double input = -1;
-    char *p_end;
+    char *p_end = {0};
     while (1)
     {
         __fpurge(stdin);
@@ -43,7 +43,7 @@ static bool is_invalid_file_name(const char *file_name)
 //check file output is existed in folder
 static bool is_exist_out_file(char* file_name)
 {
-    char ch;
+    char ch = {0};
     FILE *fp;
     fp = fopen(file_name, "r");
     if (fp == NULL)
@@ -154,7 +154,7 @@ void input_file(char *file_name)
 
 void encrypt(char *file_name, int shift, bool flag, char* output_file_name)
 {
-    char ch;
+    char ch = {0};
     int temp = shift;
 
     FILE *input_file = fopen(file_name, "rb");

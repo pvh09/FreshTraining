@@ -10,7 +10,7 @@ static double check_valid(bool flag)
 {
     char input_string[20] = {0};
     double input = -1;
-    char *pEnd;
+    char *pEnd = {0};
     while (1)
     {
         scanf("%19s", input_string);

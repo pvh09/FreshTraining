@@ -4,7 +4,7 @@ int validate_num_input()
 {
     char input_string[20] = {0};
     long input = -1;
-    char *p_end;
+    char *p_end = {0};
 
     while (1)
     {

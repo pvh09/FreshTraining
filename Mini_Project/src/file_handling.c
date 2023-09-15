@@ -4,7 +4,7 @@ double validate_num_input()
 {
     char input_string[20] = {0};
     double input = -1;
-    char *p_end;
+    char *p_end = {0};
     while (1)
     {
         __fpurge(stdin);
@@ -53,7 +53,7 @@ bool is_exist_input_file(char *file_name)
 // check file output is existed in folder
 bool is_exist_out_file(char *file_name)
 {
-    char ch;
+    char ch = {0};
     FILE *fp;
     fp = fopen(file_name, "r");
     if (fp == NULL)

@@ -50,8 +50,8 @@ void menu(char *file_name, char *output_file_name, int shift)
 int main()
 {
 
-    char file_name[MAX_FILE_NAME];
-    char output_file_name[MAX_FILE_NAME];
+    char file_name[MAX_FILE_NAME] = {0};
+    char output_file_name[MAX_FILE_NAME] = {0};
     input_file(file_name);
     change_output_file(output_file_name);
     int shift = input_shift(shift);
