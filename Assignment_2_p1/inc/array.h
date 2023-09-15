@@ -13,9 +13,9 @@ void input_number_of_array(int *number_array);
 
 void input_elements_array(int number_array, int *array);
 
-int* init_array( int number_array);
+int *init_array(int number_array);
 
-void output_array(int* array, int number_array);
+void output_array(int *array, int number_array);
 
 double calculate_avg_array(int *array, int number_array);
 
@@ -23,5 +23,5 @@ int calculate_elements_small_avg(int *array, int number_array, double average);
 
 void move_even_odd(int *array, int number_array);
 
-void free_array(int* array);
+void free_array(int *array);
 #endif
