@@ -111,16 +111,18 @@ void encode_morse(tree_node_t *root, char c, FILE *output)
 // Function to handle file I/O and encoding process
 int encode_file(const char *input_file_name, const char *output_file_name)
 {
+    char buffer[MAX_FILE] = {0}; // Adjust the buffer size as needed
+
     // Open the input file
     FILE *input = fopen(input_file_name, "r");
+    FILE *output = fopen(output_file_name, "w");
+
     if (input == NULL)
     {
         perror("Error opening input file");
         return 1;
     }
-
     // Open the output file
-    FILE *output = fopen(output_file_name, "w");
     if (output == NULL)
     {
         perror("Error opening output file");
@@ -128,8 +130,6 @@ int encode_file(const char *input_file_name, const char *output_file_name)
         return 1;
     }
 
-    // Read input from the file line by line
-    char buffer[MAX_FILE]; // Adjust the buffer size as needed
     while (fgets(buffer, sizeof(buffer), input) != NULL)
     {
         // Remove the newline character at the end of the line
@@ -206,13 +206,14 @@ void decode_morse_code(const char *morse_code, FILE *output)
 // Function to handle individual tokens (Morse code or '/')
 void handle_token(const char *token, FILE *output)
 {
+    char morse_code[MAX_FILE] = {0};
     if (strcmp(token, "/") == 0)
     {
         handle_slash(output);
     }
     else
     {
-        char morse_code[10] = "";
+        memset(morse_code, 0, MAX_FILE);
         for (int i = 0; token[i] != '\0'; i++)
         {
             if (token[i] == '.')
@@ -231,22 +232,21 @@ void handle_token(const char *token, FILE *output)
 // Function to decode Morse code from an input file and write the decoded text to an output file
 void decode_file(const char *input_file, const char *output_file)
 {
+    char line[MAX_FILE] = {0}; // Adjust the buffer size as needed
     FILE *input = fopen(input_file, "r");
+    FILE *output = fopen(output_file, "w");
+
     if (input == NULL)
     {
         printf("Unable to open input file.\n");
         return;
     }
-
-    FILE *output = fopen(output_file, "w");
     if (output == NULL)
     {
         printf("Unable to open output file.\n");
         fclose(input);
         return;
     }
-
-    char line[512]; // Adjust the buffer size as needed
     while (fgets(line, sizeof(line), input) != NULL)
     {
         char *token = strtok(line, " \n"); // Tokenize based on space and newline
@@ -265,6 +265,9 @@ void decode_file(const char *input_file, const char *output_file)
 // Function to decode Morse code from user input and write the decoded text to an output file
 void decode_keyboard(const char *output_file)
 {
+    char input[MAX_FILE] = {0}; // Adjust the buffer size as needed
+    char *token = NULL;
+    
     FILE *output = fopen(output_file, "w");
     if (output == NULL)
     {
@@ -273,10 +276,9 @@ void decode_keyboard(const char *output_file)
     }
     __fpurge(stdin);
     printf("Enter Morse code (separated by spaces): ");
-    char input[MAX_FILE] = {0}; // Adjust the buffer size as needed
+    
     fgets(input, sizeof(input), stdin);
-
-    char *token = strtok(input, " \n"); // Tokenize based on space and newline
+    token = strtok(input, " \n"); // Tokenize based on space and newline
     while (token != NULL)
     {
         handle_token(token, output);
@@ -289,7 +291,7 @@ void decode_keyboard(const char *output_file)
 
 int encode_keyboard(const char *output_filename)
 {
-    int c;
+    int c = 0;
     int rs = 1;
     // Open the output file
     FILE *output = fopen(output_filename, "w");

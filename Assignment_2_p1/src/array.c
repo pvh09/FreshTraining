@@ -11,6 +11,8 @@ static double check_valid(bool flag)
     char input_string[20] = {0};
     double input = -1;
     char *pEnd = {0};
+    long long int_part = 0;
+    
     while (1)
     {
         scanf("%19s", input_string);
@@ -24,10 +26,10 @@ static double check_valid(bool flag)
         }
         else if (flag == 0)
         {
-            long long intPart = strtoll(input_string, &pEnd, 10);
+            int_part = strtoll(input_string, &pEnd, 10);
             if (pEnd != input_string && *pEnd == '\0')
             {
-                input = intPart;
+                input = int_part;
                 return input;
             }
         }

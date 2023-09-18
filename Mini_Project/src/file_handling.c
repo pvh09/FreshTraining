@@ -5,14 +5,16 @@ double validate_num_input()
     char input_string[20] = {0};
     double input = -1;
     char *p_end = {0};
+    long long int_part = 0;
+
     while (1)
     {
         __fpurge(stdin);
         scanf("%19s", input_string);
-        long long intPart = strtoll(input_string, &p_end, 10);
-        if (p_end != input_string && *p_end == '\0' && intPart >= 0 && intPart < 26)
+        int_part = strtoll(input_string, &p_end, 10);
+        if (p_end != input_string && *p_end == '\0' && int_part >= 0 && int_part < 26)
         {
-            input = intPart;
+            input = int_part;
             return input;
         }
         printf("\nWARNING: ");
@@ -38,7 +40,7 @@ bool check_digit(char *file_name)
 // check file input is existed in folder
 bool is_exist_input_file(char *file_name)
 {
-    FILE *fp;
+    FILE *fp = NULL;
     fp = fopen(file_name, "r");
     if (fp == NULL || !check_digit(file_name))
     {
@@ -54,7 +56,7 @@ bool is_exist_input_file(char *file_name)
 bool is_exist_out_file(char *file_name)
 {
     char ch = {0};
-    FILE *fp;
+    FILE *fp = NULL;
     fp = fopen(file_name, "r");
     if (fp == NULL)
     {
@@ -83,7 +85,7 @@ bool is_exist_out_file(char *file_name)
 // check file exist in folder
 bool check_file_exist(char *file_name, bool check_in_out)
 {
-    bool check;
+    bool check = true;
     if (check_in_out)
     {
         check = is_exist_input_file(file_name);
@@ -111,8 +113,9 @@ bool is_invalid_file_name(const char *file_name)
 // check length of output name and check name of ouput have no " \/:*?\"<>| "
 bool is_over_range(char *file_name)
 {
-    bool valid_input;
+    bool valid_input = true;
     bool check_exist_file = false;
+
     if (strlen(file_name) > MAX_FILE)
     {
         printf(">> File name too long. Please enter a shorter file name.\n");
@@ -176,6 +179,7 @@ void change_file(char *output_file_name)
 
 void read_and_print_file(const char *filename)
 {
+    char line[MAX_FILE] = {0}; // Adjust the buffer size as needed
     FILE *file = fopen(filename, "r");
 
     if (file == NULL)
@@ -183,8 +187,6 @@ void read_and_print_file(const char *filename)
         perror("Error opening the file");
         return;
     }
-
-    char line[256]; // Adjust the buffer size as needed
 
     while (fgets(line, sizeof(line), file))
     {

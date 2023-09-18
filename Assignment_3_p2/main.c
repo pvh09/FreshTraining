@@ -2,7 +2,7 @@
 
 void menu(char *file_name, char *output_file_name, int shift)
 {
-    int choice;
+    option_t choice;
     system("clear");
     do
     {
@@ -49,12 +49,12 @@ void menu(char *file_name, char *output_file_name, int shift)
 
 int main()
 {
-
+    int shift = 0;
     char file_name[MAX_FILE_NAME] = {0};
     char output_file_name[MAX_FILE_NAME] = {0};
     input_file(file_name);
     change_output_file(output_file_name);
-    int shift = input_shift(shift);
+    shift = input_shift(shift);
     menu(file_name, output_file_name, shift);
 
     return 0;

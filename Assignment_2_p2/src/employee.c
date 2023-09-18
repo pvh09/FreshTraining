@@ -16,6 +16,8 @@ double validate_num_input(bool flag)
     char input_string[20] = {0};
     double input = -1;
     char *p_end = {0};
+    long long int_part = 0;
+
     while (1)
     {
         __fpurge(stdin);
@@ -30,10 +32,10 @@ double validate_num_input(bool flag)
         }
         else if (flag == 0)
         {
-            long long intPart = strtoll(input_string, &p_end, 10);
-            if (p_end != input_string && *p_end == '\0' && intPart > 0)
+            int_part = strtoll(input_string, &p_end, 10);
+            if (p_end != input_string && *p_end == '\0' && int_part > 0)
             {
-                input = intPart;
+                input = int_part;
                 return input;
             }
         }

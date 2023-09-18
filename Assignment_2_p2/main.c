@@ -40,7 +40,7 @@ void sort_menu(e_employee_list *list_employee)
 
 int main()
 {
-    option_t choice;
+    option_t choice = 0;
     do
     {
         printf("\n---------- Employee Management System -----------\n");

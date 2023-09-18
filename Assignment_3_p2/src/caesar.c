@@ -5,14 +5,15 @@ double validate_num_input()
     char input_string[20] = {0};
     double input = -1;
     char *p_end = {0};
+    long long int_part = 0;
     while (1)
     {
         __fpurge(stdin);
         scanf("%19s", input_string);
-        long long intPart = strtoll(input_string, &p_end, 10);
-        if (p_end != input_string && *p_end == '\0' && intPart >= 0 && intPart < 26)
+        int_part = strtoll(input_string, &p_end, 10);
+        if (p_end != input_string && *p_end == '\0' && int_part >= 0 && int_part < 26)
         {
-            input = intPart;
+            input = int_part;
             return input;
         }
         printf("\nWARNING: ");
@@ -46,7 +47,7 @@ static bool is_invalid_file_name(const char *file_name)
 static bool is_exist_out_file(char *file_name)
 {
     char ch = {0};
-    FILE *fp;
+    FILE *fp = NULL;
     fp = fopen(file_name, "r");
     if (fp == NULL)
     {
@@ -75,7 +76,7 @@ static bool is_exist_out_file(char *file_name)
 // check length of output name and check name of ouput have no " \/:*?\"<>| "
 static bool is_over_range(char *file_name)
 {
-    bool valid_input;
+    bool valid_input = true;
     bool check_exist_file = false;
     if (strlen(file_name) > MAX_FILE_NAME)
     {
@@ -113,7 +114,7 @@ static bool check_digit(char *file_name)
 // check file input is existed in folder
 static bool is_exist_input_file(char *file_name)
 {
-    FILE *fp;
+    FILE *fp = NULL;
     fp = fopen(file_name, "r");
     if (fp == NULL || !check_digit(file_name))
     {
