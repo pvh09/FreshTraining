@@ -4,7 +4,7 @@ e_employee_list *list_employee = NULL;
 
 void sort_menu(e_employee_list *list_employee)
 {
-    option_sort choice;
+    option_sort choice = 0;
     do
     {
         printf("\n------------ SORT EMPLOYEE ----------------\n");
