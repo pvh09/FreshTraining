@@ -31,33 +31,27 @@ typedef enum
     EXIT_SORT
 } option_sort;
 
-struct Date
+typedef struct date
 {
     int day;
     int month;
     int year;
-};
-typedef struct Date Date;
+} e_date_t;
 
-struct Employee
+typedef struct employee
 {
     int id;
     char *full_name;
     char *department;
     double salary;
-    struct Date start_date;
-};
+    e_date_t start_date;
+} e_employee_t;
 
-
-typedef struct Employee Employee;
-
-struct node
+typedef struct node
 {
-    Employee *employee_info;
+    e_employee_t *employee_info;
     struct node *next;
-};
-
-typedef struct node employee_list;
+} e_employee_list;
 
 /*!
  * @brief <Get the number of employee input from keyboard>
@@ -77,7 +71,7 @@ void input_number_of_employee(int *number);
  *
  * @return None
  */
-void insert_employee(employee_list **list_employee, Employee *p_new_employee);
+void insert_employee(e_employee_list **list_employee, e_employee_t *p_new_employee);
 
 /*!
  * @brief Enter information of a new employee into the employee list.
@@ -85,13 +79,13 @@ void insert_employee(employee_list **list_employee, Employee *p_new_employee);
  * This function prompts the user to input information for a new employee and adds
  * the employee to the linked list.
  *
- * @param[in] number - Employee number.
+ * @param[in] number - e_employee_t number.
  *
  * @param[in,out] list_employee - Pointer to a pointer pointing to the head node of the employee linked list.
  *
  * @return Pointer to the new employee structure.
  */
-Employee *input_employee_infomation_list(int number, employee_list **list_employee);
+e_employee_t *input_employee_infomation_list(int number, e_employee_list **list_employee);
 
 /*!
  * @brief Print the table of employees' information.
@@ -102,7 +96,7 @@ Employee *input_employee_infomation_list(int number, employee_list **list_employ
  *
  * @return None.
  */
-void print_employee_table(employee_list *list_head);
+void print_employee_table(e_employee_list *list_head);
 
 /*!
  * @brief Free the memory occupied by the employee linked list.
@@ -113,7 +107,7 @@ void print_employee_table(employee_list *list_head);
  *
  * @return None.
  */
-void free_employee_list(employee_list *head);
+void free_employee_list(e_employee_list *head);
 
 /*!
  * @brief Add a new employee to the list.
@@ -124,7 +118,7 @@ void free_employee_list(employee_list *head);
  *
  * @return None.
  */
-void add_employee(employee_list **employees);
+void add_employee(e_employee_list **employees);
 
 /*!
  * @brief Remove an employee by their ID.
@@ -135,7 +129,7 @@ void add_employee(employee_list **employees);
  *
  * @return None.
  */
-void remove_employee_by_id(employee_list **head);
+void remove_employee_by_id(e_employee_list **head);
 
 /*!
  * @brief Remove employees by their full name.
@@ -146,7 +140,7 @@ void remove_employee_by_id(employee_list **head);
  *
  * @return None.
  */
-void remove_employee_by_full_name(employee_list **head);
+void remove_employee_by_full_name(e_employee_list **head);
 
 /*!
  * @brief Validate and input a numerical value.
@@ -170,7 +164,7 @@ double validate_num_input(bool flag);
  *
  * @return None.
  */
-void merge_sort(employee_list **head, int (*compare)(const void *, const void *));
+void merge_sort(e_employee_list **head, int (*compare)(const void *, const void *));
 
 /*!
  * @brief Compare function for sorting employees by increasing salary.
