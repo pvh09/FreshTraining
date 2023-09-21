@@ -1,4 +1,3 @@
-
 CC = gcc
 INC = -I ./inc
 SRC = ./src/*.c
@@ -22,6 +21,3 @@ clean:
 	rm -rf main *.o
 
 running: all main clean
-
-
-

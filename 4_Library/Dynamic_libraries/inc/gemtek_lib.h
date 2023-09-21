@@ -18,4 +18,6 @@ double calculate_cube_integer(int integer_number);
 
 int is_fibonacci(int integer_number);
 
+int is_perfect_square(double x);
+
 #endif
