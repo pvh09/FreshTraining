@@ -1,6 +1,5 @@
 #ifndef _MENU_H_
 #define _MENU_H_
-#include "binary_tree.h"
 #include "morse_code.h"
 #include "file_handling.h"
 
