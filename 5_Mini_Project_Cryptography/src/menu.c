@@ -7,6 +7,7 @@ static int flag_check_change_file = 0;
 
 static void data_from_file_menu(char *file_name, char *output_file_name)
 {
+    int result = 0;
     option_t choice = 0;
     flag_check_change_file_from_keyboard = 0; // reset output file in keyboard because user switches to reading from the file
     
@@ -34,7 +35,7 @@ static void data_from_file_menu(char *file_name, char *output_file_name)
         switch (choice)
         {
         case ENCODING:
-            int result = encode_file(file_name, output_file_name);
+            result = encode_file(file_name, output_file_name);
             printf("Message: \n");
             read_and_print_file(output_file_name);
             if (result != 0)
@@ -70,6 +71,7 @@ static void data_from_file_menu(char *file_name, char *output_file_name)
 
 static void data_from_keyboard_menu(char *output_file_name)
 {
+    int result = 0;
     option_t choice = 0;
 
     flag_check_change_file = 0; // reset input/output file because user switches to reading from the keyboard
@@ -96,7 +98,7 @@ static void data_from_keyboard_menu(char *output_file_name)
         switch (choice)
         {
         case ENCODING:
-            int result = encode_keyboard(output_file_name);
+            result = encode_keyboard(output_file_name);
             printf("Message: ");
             read_and_print_file(output_file_name);
             break;
