@@ -5,7 +5,7 @@
 static int flag_check_change_file_from_keyboard = 0;
 static int flag_check_change_file = 0;
 
-void data_from_file_menu(char *file_name, char *output_file_name)
+static void data_from_file_menu(char *file_name, char *output_file_name)
 {
     option_t choice = 0;
     flag_check_change_file_from_keyboard = 0; // reset output file in keyboard because user switches to reading from the file
@@ -68,7 +68,7 @@ void data_from_file_menu(char *file_name, char *output_file_name)
     } while (choice != 0);
 }
 
-void data_from_keyboard_menu(char *output_file_name)
+static void data_from_keyboard_menu(char *output_file_name)
 {
     option_t choice = 0;
 
